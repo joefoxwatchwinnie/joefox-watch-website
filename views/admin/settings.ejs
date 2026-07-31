@@ -1,0 +1,81 @@
+<h1>Site Settings</h1>
+
+<form method="POST" action="/admin/settings" enctype="multipart/form-data" class="card">
+  <div class="two-col">
+    <div class="form-group">
+      <label>Site Title</label>
+      <input type="text" name="site_title" value="<%= settings.site_title %>" required>
+    </div>
+    <div class="form-group">
+      <label>WhatsApp Number</label>
+      <input type="text" name="whatsapp" value="<%= settings.whatsapp %>" required>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" value="<%= settings.email %>" required>
+    </div>
+    <div class="form-group">
+      <label>Factory Address</label>
+      <input type="text" name="address" value="<%= settings.address %>" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Meta Description</label>
+    <textarea name="meta_description"><%= settings.meta_description %></textarea>
+  </div>
+
+  <h2>Logo Uploads</h2>
+    <p class="hint" style="margin-bottom:16px;">Upload a transparent PNG. "Dark background logo" is used on the dark hero banner; "Light background logo" is used on the white navigation bar. If you only have a white logo, check "Invert nav logo" below so it becomes dark on the white nav.</p>
+
+    <div class="form-group toggle">
+      <label><input type="checkbox" name="logo_invert" value="1" <%= settings.logo_invert ? 'checked' : '' %>> Invert navigation logo colors (use when logo file is white)</label>
+    </div>
+
+    <div class="two-col">
+    <div class="form-group">
+      <label>Logo for Dark Backgrounds</label>
+      <input type="file" name="logo_dark" accept="image/*">
+      <% if(settings.logo_dark){ %>
+        <div style="margin-top:10px;">
+          <img src="<%= settings.logo_dark %>" class="preview" alt="Dark logo">
+          <p class="hint"><%= settings.logo_dark %></p>
+        </div>
+      <% } else { %>
+        <div class="preview-placeholder" style="margin-top:10px;">No image</div>
+      <% } %>
+    </div>
+    <div class="form-group">
+      <label>Logo for Light Backgrounds</label>
+      <input type="file" name="logo_light" accept="image/*">
+      <% if(settings.logo_light){ %>
+        <div style="margin-top:10px;">
+          <img src="<%= settings.logo_light %>" class="preview" alt="Light logo">
+          <p class="hint"><%= settings.logo_light %></p>
+        </div>
+      <% } else { %>
+        <div class="preview-placeholder" style="margin-top:10px;">No image</div>
+      <% } %>
+    </div>
+  </div>
+
+  <h2>Product Catalog PDF (Download)</h2>
+  <p class="hint" style="margin-bottom:16px;">Upload your watch product catalog PDF. Visitors can download it from the "Download Catalog" button on the homepage and in the website footer. Accepted format: PDF (max 25 MB).</p>
+  <div class="form-group">
+    <label>Catalog PDF File</label>
+    <input type="file" name="catalog_pdf" accept="application/pdf">
+    <% if(settings.catalog_pdf){ %>
+      <div style="margin-top:10px;">
+        <a href="<%= settings.catalog_pdf %>" target="_blank" class="preview"><%= settings.catalog_pdf %></a>
+        <label class="toggle" style="margin-top:8px;display:block;"><input type="checkbox" name="remove_catalog" value="1"> Remove current catalog</label>
+      </div>
+    <% } else { %>
+      <div class="preview-placeholder" style="margin-top:10px;">No PDF uploaded</div>
+    <% } %>
+  </div>
+
+  <button type="submit" class="btn">Save Settings</button>
+</form>

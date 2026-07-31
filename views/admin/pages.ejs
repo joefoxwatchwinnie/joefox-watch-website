@@ -1,0 +1,33 @@
+<h1>SEO / Page Meta</h1>
+<p class="hint" style="margin-bottom:24px;">Edit the browser tab title and meta description for each public page. These help Google index your site. A sitemap.xml is generated automatically at <code>/sitemap.xml</code>.</p>
+
+<form method="POST" action="/admin/pages" class="card">
+  <%
+    const pageLabels = {
+      home: 'Home',
+      factory: 'Our Factory',
+      oem: 'OEM & ODM Service',
+      quartz: 'Quartz Watches',
+      contact: 'Contact Us'
+    };
+    const pagePaths = {
+      home: '/',
+      factory: '/our-factory',
+      oem: '/oem-odm-service',
+      quartz: '/quartz-watches',
+      contact: '/contact'
+    };
+    Object.keys(pageLabels).forEach(k => {
+  %>
+  <h2><%= pageLabels[k] %> <span class="hint" style="font-weight:400;">(<%= pagePaths[k] %>)</span></h2>
+  <div class="form-group">
+    <label>Page Title (Meta Title)</label>
+    <input type="text" name="title_<%= k %>" value="<%= pages[k].title %>" required>
+  </div>
+  <div class="form-group">
+    <label>Meta Description</label>
+    <textarea name="desc_<%= k %>"><%= pages[k].meta_description %></textarea>
+  </div>
+  <% }); %>
+  <button type="submit" class="btn">Save Page SEO</button>
+</form>

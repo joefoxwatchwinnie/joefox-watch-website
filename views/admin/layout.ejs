@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> | JOEFOX CMS</title>
+  <style>
+    :root{--ink:#111;--gray:#f5f5f5;--border:#e5e5e5;--accent:#111;--danger:#c0392b;--ok:#27ae60;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,sans-serif;background:#fafafa;color:#222;line-height:1.55;}
+    a{color:inherit;text-decoration:none;}
+    .admin{display:flex;min-height:100vh;}
+    .sidebar{width:260px;background:#111;color:#fff;padding:24px 0;position:fixed;inset:0 auto 0 0;overflow:auto;}
+    .sidebar .brand{padding:0 24px 24px;font-weight:700;font-size:1.25rem;letter-spacing:.04em;border-bottom:1px solid rgba(255,255,255,.1);}
+    .sidebar nav{padding:16px 0;}
+    .sidebar a{display:block;padding:12px 24px;color:rgba(255,255,255,.78);font-size:.95rem;transition:.2s;}
+    .sidebar a:hover,.sidebar a.active{color:#fff;background:rgba(255,255,255,.08);}
+    .main{flex:1;margin-left:260px;}
+    .topbar{background:#fff;border-bottom:1px solid var(--border);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;}
+    .topbar .user{font-size:.9rem;color:#666;}
+    .topbar a.logout{font-size:.85rem;color:#c0392b;margin-left:16px;}
+    .content{padding:32px;max-width:1100px;}
+    .flash{padding:12px 16px;border-radius:4px;margin-bottom:24px;font-size:.9rem;}
+    .flash.success{background:#e8f5e9;color:#1b5e20;border:1px solid #c8e6c9;}
+    .flash.error{background:#ffebee;color:#b71c1c;border:1px solid #ffcdd2;}
+    h1{font-size:1.6rem;font-weight:600;margin-bottom:24px;}
+    h2{font-size:1.15rem;font-weight:600;margin:24px 0 12px;}
+    .card{background:#fff;border:1px solid var(--border);border-radius:6px;padding:24px;margin-bottom:24px;}
+    .form-group{margin-bottom:18px;}
+    label{display:block;font-size:.85rem;font-weight:600;color:#555;margin-bottom:6px;}
+    input[type="text"],input[type="email"],input[type="password"],input[type="number"],textarea,select{
+      width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:4px;font-size:.95rem;font-family:inherit;background:#fff;
+    }
+    textarea{min-height:100px;resize:vertical;}
+    .hint{font-size:.8rem;color:#888;margin-top:4px;}
+    .btn{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-size:.9rem;font-weight:500;cursor:pointer;transition:.2s;}
+    .btn:hover{background:#333;}
+    .btn-sm{padding:6px 12px;font-size:.8rem;}
+    .btn-danger{background:var(--danger);}
+    .btn-danger:hover{background:#a93226;}
+    .btn-secondary{background:#fff;color:#111;border:1px solid #111;}
+    .btn-secondary:hover{background:#f5f5f5;}
+    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+    th,td{padding:12px 16px;text-align:left;font-size:.9rem;border-bottom:1px solid var(--border);vertical-align:top;}
+    th{background:#f8f8f8;font-weight:600;color:#555;}
+    tr:last-child td{border-bottom:none;}
+    .preview{width:80px;height:80px;object-fit:cover;border-radius:4px;background:#f0f0f0;border:1px solid var(--border);}
+    .preview-placeholder{width:80px;height:80px;border-radius:4px;background:#f0f0f0;border:1px dashed #ccc;display:flex;align-items:center;justify-content:center;color:#999;font-size:.7rem;text-align:center;}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
+    .four-col{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+    .actions{display:flex;gap:10px;align-items:center;}
+    .toggle input{margin-right:6px;}
+    .menu-toggle{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;}
+    @media(max-width:900px){
+      .sidebar{transform:translateX(-100%);transition:.3s;z-index:100;}
+      .sidebar.open{transform:translateX(0);}
+      .main{margin-left:0;}
+      .topbar{padding:12px 20px;}
+      .content{padding:20px;}
+      .menu-toggle{display:block;}
+      .two-col,.three-col,.four-col{grid-template-columns:1fr;}
+    }
+  </style>
+  <%- style %>
+</head>
+<body>
+  <div class="admin">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">JOEFOX CMS</div>
+      <nav>
+        <a href="/admin" class="<%= page === 'dashboard' ? 'active' : '' %>">Dashboard</a>
+        <a href="/admin/settings" class="<%= page === 'settings' ? 'active' : '' %>">Site Settings</a>
+        <a href="/admin/banners" class="<%= page === 'banners' ? 'active' : '' %>">Home Banners</a>
+        <a href="/admin/factory" class="<%= page === 'factory' ? 'active' : '' %>">Our Factory</a>
+        <a href="/admin/oem" class="<%= page === 'oem' ? 'active' : '' %>">OEM & ODM Service</a>
+        <a href="/admin/products" class="<%= page === 'products' ? 'active' : '' %>">Quartz Watches</a>
+        <a href="/admin/advantages" class="<%= page === 'advantages' ? 'active' : '' %>">Our Advantages</a>
+        <a href="/admin/contact" class="<%= page === 'contact' ? 'active' : '' %>">Contact Us</a>
+        <a href="/admin/highlights" class="<%= page === 'highlights' ? 'active' : '' %>">Home Highlights</a>
+        <a href="/admin/pages" class="<%= page === 'pages' ? 'active' : '' %>">SEO / Page Meta</a>
+        <a href="/admin/account" class="<%= page === 'account' ? 'active' : '' %>">Account</a>
+      </nav>
+    </aside>
+    <div class="main">
+      <div class="topbar">
+        <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <span></span>
+        <div class="user">Logged in as <%= user.username %> <a href="/admin/logout" class="logout">Logout</a></div>
+      </div>
+      <div class="content">
+        <% if(success){ %><div class="flash success"><%= success %></div><% } %>
+        <% if(error){ %><div class="flash error"><%= error %></div><% } %>
+        <%- body %>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('aside a').forEach(link => {
+      link.addEventListener('click', () => document.getElementById('sidebar').classList.remove('open'));
+    });
+  </script>
+  <%- script %>
+</body>
+</html>

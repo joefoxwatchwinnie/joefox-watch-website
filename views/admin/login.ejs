@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | JOEFOX CMS</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Inter,sans-serif;background:#111;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+    .login-box{background:#fff;color:#222;padding:40px;border-radius:8px;width:100%;max-width:400px;}
+    .brand{font-size:1.5rem;font-weight:700;text-align:center;margin-bottom:8px;letter-spacing:.04em;}
+    .sub{text-align:center;color:#888;font-size:.85rem;margin-bottom:28px;}
+    .form-group{margin-bottom:18px;}
+    label{display:block;font-size:.85rem;font-weight:600;color:#555;margin-bottom:6px;}
+    input{width:100%;padding:12px;border:1px solid #e5e5e5;border-radius:4px;font-size:.95rem;}
+    button{width:100%;padding:12px;background:#111;color:#fff;border:none;border-radius:4px;font-size:.95rem;font-weight:600;cursor:pointer;}
+    button:hover{background:#333;}
+    .error{background:#ffebee;color:#b71c1c;padding:10px;border-radius:4px;font-size:.85rem;margin-bottom:16px;}
+    .hint{margin-top:20px;text-align:center;font-size:.8rem;color:#999;}
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="brand">JOEFOX CMS</div>
+    <div class="sub">B2B Website Admin Panel</div>
+    <% if(error){ %><div class="error"><%= error %></div><% } %>
+    <form method="POST" action="/admin/login">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" required autofocus>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" required>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <div class="hint">Default: admin / joefox2026</div>
+  </div>
+</body>
+</html>

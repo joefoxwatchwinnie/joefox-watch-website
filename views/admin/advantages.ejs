@@ -1,0 +1,19 @@
+<h1>Our Advantages</h1>
+
+<form method="POST" action="/admin/advantages" class="card">
+  <% advantages.forEach((adv, idx) => { %>
+  <div class="form-group">
+    <label>Advantage <%= idx + 1 %></label>
+    <input type="text" name="title_<%= idx %>" value="<%= adv.title %>" required style="margin-bottom:8px;">
+    <textarea name="desc_<%= idx %>" rows="2" required><%= adv.desc %></textarea>
+    <div class="two-col" style="margin-top:8px;">
+      <div>
+        <label>Sort Order</label>
+        <input type="number" name="sort_<%= idx %>" value="<%= adv.sort_order %>">
+      </div>
+    </div>
+  </div>
+  <% }) %>
+
+  <button type="submit" class="btn">Save Advantages</button>
+</form>

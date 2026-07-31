@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.log
+.DS_Store
+# Keep the folders, ignore their contents (user uploads / local data)
+public/uploads/*
+data/*
+!public/uploads/.gitkeep
+!data/.gitkeep

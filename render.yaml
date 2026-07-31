@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: joefox-cms
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+    disks:
+      - name: joefox-data
+        mountPath: /app/data
+        sizeGB: 1
+      - name: joefox-uploads
+        mountPath: /app/public/uploads
+        sizeGB: 1

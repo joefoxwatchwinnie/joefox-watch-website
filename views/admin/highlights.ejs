@@ -1,0 +1,36 @@
+<h1>Home Highlights</h1>
+<p class="hint" style="margin-bottom:24px;">These four cards appear on the homepage (the core advantages strip). Edit the icon, title and description for each.</p>
+
+<form method="POST" action="/admin/highlights" class="card">
+  <%
+    const iconOptions = ['shipping','water','movement','oem'];
+  %>
+  <% highlights.forEach((h, idx) => { %>
+  <div style="border:1px solid #e5e5e5;border-radius:6px;padding:18px;margin-bottom:18px;">
+    <h2>Card <%= idx + 1 %></h2>
+    <div class="three-col">
+      <div class="form-group">
+        <label>Icon</label>
+        <select name="icon_<%= idx %>">
+          <% iconOptions.forEach(opt => { %>
+            <option value="<%= opt %>" <%= h.icon === opt ? 'selected' : '' %>><%= opt %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" name="title_<%= idx %>" value="<%= h.title %>" required>
+      </div>
+      <div class="form-group">
+        <label>Sort Order</label>
+        <input type="number" name="sort_<%= idx %>" value="<%= h.sort_order %>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea name="desc_<%= idx %>"><%= h.desc %></textarea>
+    </div>
+  </div>
+  <% }); %>
+  <button type="submit" class="btn">Save Highlights</button>
+</form>

@@ -1,0 +1,58 @@
+<h1>Home Banners</h1>
+
+<form method="POST" action="/admin/banners" enctype="multipart/form-data">
+  <% banners.forEach((banner, idx) => { %>
+  <div class="card">
+    <h2>Banner <%= idx + 1 %></h2>
+    <input type="hidden" name="id_<%= idx %>" value="<%= banner.id %>">
+
+    <div class="two-col">
+      <div class="form-group">
+        <label>Title (English)</label>
+        <input type="text" name="title_<%= idx %>" value="<%= banner.title %>" required>
+      </div>
+      <div class="form-group">
+        <label>Chinese Note / Subtitle</label>
+        <input type="text" name="subtitle_<%= idx %>" value="<%= banner.subtitle %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea name="description_<%= idx %>" rows="3"><%= banner.description %></textarea>
+    </div>
+
+    <div class="two-col">
+      <div class="form-group">
+        <label>CTA Text</label>
+        <input type="text" name="cta_text_<%= idx %>" value="<%= banner.cta_text %>">
+      </div>
+      <div class="form-group">
+        <label>CTA Link</label>
+        <input type="text" name="cta_link_<%= idx %>" value="<%= banner.cta_link %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Background Image (upload to replace)</label>
+      <input type="file" name="image_<%= idx %>" accept="image/*">
+      <% if(banner.image){ %>
+        <div style="margin-top:10px;">
+          <img src="<%= banner.image %>" class="preview" alt="Banner <%= idx + 1 %>">
+          <p class="hint"><%= banner.image %></p>
+        </div>
+      <% } else { %>
+        <div class="preview-placeholder" style="margin-top:10px;">No image uploaded</div>
+      <% } %>
+    </div>
+
+    <div class="form-group toggle">
+      <label>
+        <input type="checkbox" name="active_<%= idx %>" <%= banner.active ? 'checked' : '' %>> Active
+      </label>
+    </div>
+  </div>
+  <% }) %>
+
+  <button type="submit" class="btn">Save Banners</button>
+</form>

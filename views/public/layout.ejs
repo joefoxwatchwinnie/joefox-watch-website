@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= meta.title %></title>
+  <meta name="description" content="<%= meta.meta_description %>">
+  <link rel="canonical" href="<%= settings.site_url.replace(/\/$/,'') %><%= (path==='/'?'':path) %>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="<%= meta.title %>">
+  <meta property="og:description" content="<%= meta.meta_description %>">
+  <meta property="og:url" content="<%= settings.site_url.replace(/\/$/,'') %><%= (path==='/'?'':path) %>">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "JOEFOX Watch Factory",
+    "url": "<%= settings.site_url %>",
+    "email": "<%= settings.email %>",
+    "address": { "@type": "PostalAddress", "addressCountry": "CN", "addressRegion": "Guangdong", "addressLocality": "Guangzhou" },
+    "contactPoint": { "@type": "ContactPoint", "telephone": "<%= settings.whatsapp %>", "contactType": "sales", "areaServed": "Worldwide" }
+  }
+  </script>
+  <style>
+    :root{
+      --ink:#111;--gray-900:#222;--gray-700:#4a4a4a;--gray-500:#777;--gray-300:#d4d4d4;
+      --gray-100:#f6f6f6;--white:#fff;--accent:#111;--accent-hover:#333;--danger:#c0392b;
+      --radius:8px;--maxw:1200px;--ease:cubic-bezier(.22,.61,.36,1);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased;}
+    a{color:inherit;text-decoration:none;}
+    img{max-width:100%;display:block;}
+    ul{list-style:none;}
+    .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:#fff;border:1px solid var(--accent);padding:12px 28px;border-radius:var(--radius);font-size:.88rem;font-weight:600;letter-spacing:.02em;cursor:pointer;transition:.25s var(--ease);}
+    .btn:hover{background:var(--accent-hover);border-color:var(--accent-hover);}
+    .btn-outline{background:transparent;color:var(--ink);border-color:var(--gray-300);}
+    .btn-outline:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
+    .btn-light{background:#fff;color:var(--ink);border-color:#fff;}
+    .btn-light:hover{background:transparent;color:#fff;}
+    .section-title{font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;}
+    .section-sub{color:var(--gray-700);font-size:1.05rem;max-width:640px;margin-top:12px;}
+    .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-500);margin-bottom:12px;}
+
+    /* Nav */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.06);transition:.3s;}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:76px;}
+    .logo{display:flex;align-items:center;gap:10px;height:60px;}
+    .logo img{height:54px;width:auto;object-fit:contain;}
+    .logo img.invert{filter:invert(1);}
+    .logo-text{font-size:1.4rem;font-weight:800;letter-spacing:.06em;}
+    .nav-menu{display:flex;align-items:center;gap:32px;}
+    .nav-menu a{font-size:.9rem;font-weight:500;color:var(--gray-900);position:relative;padding:6px 0;}
+    .nav-menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--ink);transition:.3s var(--ease);}
+    .nav-menu a:hover::after{width:100%;}
+    .nav-menu a.active{color:var(--ink);}
+    .nav-menu a.active::after{width:100%;}
+    .nav-cta{display:flex;align-items:center;gap:16px;}
+    .nav-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px;}
+    .nav-toggle span{width:24px;height:2px;background:var(--ink);transition:.3s;}
+    .nav-whatsapp{font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:6px;}
+    .nav-whatsapp svg{color:#25d366;}
+
+    /* Footer */
+    footer{background:var(--ink);color:rgba(255,255,255,.7);padding:64px 0 24px;}
+    .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:40px;}
+    .foot-brand .logo-text{color:#fff;font-size:1.5rem;margin-bottom:14px;}
+    .foot-brand p{font-size:.9rem;color:rgba(255,255,255,.55);max-width:320px;}
+    .foot-col h5{color:#fff;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:18px;font-weight:600;}
+    .foot-col a,.foot-col li{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;color:rgba(255,255,255,.65);margin-bottom:12px;transition:.2s;}
+    .foot-col a:hover{color:#fff;}
+    .foot-col .ic{margin-top:3px;flex:0 0 16px;color:rgba(255,255,255,.85);}
+    .foot-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:48px;padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.8rem;color:rgba(255,255,255,.45);}
+    .foot-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:#1a1a1a;border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:26px 30px;margin-bottom:48px;}
+    .foot-cta h4{color:#fff;font-size:1.1rem;font-weight:700;margin-bottom:4px;}
+    .foot-cta p{color:rgba(255,255,255,.55);font-size:.9rem;margin:0;}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+    .reveal.in{opacity:1;transform:none;}
+
+    @media(max-width:900px){
+      .nav-menu{position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;background:#fff;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;padding:40px;transform:translateX(100%);transition:.4s var(--ease);box-shadow:-20px 0 50px -20px rgba(0,0,0,.2);z-index:200;}
+      .nav-menu.open{transform:translateX(0);}
+      .nav-menu a{font-size:1.05rem;padding:12px 0;}
+      .nav-cta .nav-whatsapp{display:none;}
+      .nav-toggle{display:flex;z-index:201;}
+      .foot-grid{grid-template-columns:1fr 1fr;gap:30px;}
+    }
+    @media(max-width:600px){
+      .wrap{padding:0 18px;}
+      .foot-grid{grid-template-columns:1fr;}
+      .foot-bottom{flex-direction:column;}
+    }
+  </style>
+  <%- style %>
+</head>
+<body>
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a href="/" class="logo" aria-label="JOEFOX home">
+        <% if(settings.logo_light){ %>
+          <img src="<%= settings.logo_light %>" alt="JOEFOX" class="<%= settings.logo_invert ? 'invert' : '' %>" onerror="this.outerHTML='<span class=\\'logo-text\\'>JOEFOX</span>'">
+        <% } else { %>
+          <span class="logo-text">JOEFOX</span>
+        <% } %>
+      </a>
+      <nav class="nav-menu" id="navMenu">
+        <a href="/" class="<%= page==='home'?'active':'' %>">Home</a>
+        <a href="/our-factory" class="<%= page==='factory'?'active':'' %>">Our Factory</a>
+        <a href="/oem-odm-service" class="<%= page==='oem'?'active':'' %>">OEM &amp; ODM Service</a>
+        <a href="/quartz-watches" class="<%= page==='quartz'?'active':'' %>">Quartz Watches</a>
+        <a href="/contact" class="<%= page==='contact'?'active':'' %>">Contact Us</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="https://wa.me/<%= settings.whatsapp.replace(/\D/g,'') %>" target="_blank" rel="noopener" class="nav-whatsapp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm5.5 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.2-.7-2.8-1.2-4.6-4.1-4.7-4.3-.1-.2-1.1-1.5-1.1-2.8 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 1.9c.1.2.1.3 0 .5l-.4.5c-.1.2-.2.3-.1.5.1.2.5.9 1 1.5.7.7 1.3 1 1.5 1.1.2.1.3.1.4-.1l.5-.7c.2-.2.3-.2.5-.1l1.9.9c.2.1.4.2.4.3.1.1.1.6-.1 1.2z"/></svg>
+          <%= settings.whatsapp %>
+        </a>
+        <a href="/contact" class="btn">Quick Inquiry</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <%- body %>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <div class="logo-text">JOEFOX</div>
+          <p>Professional watch manufacturer specializing in quartz watch wholesale and OEM/ODM custom service for global B2B clients.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Navigation</h5>
+          <a href="/">Home</a>
+          <a href="/our-factory">Our Factory</a>
+          <a href="/oem-odm-service">OEM &amp; ODM Service</a>
+          <a href="/quartz-watches">Quartz Watches</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contact</h5>
+          <a href="https://wa.me/<%= settings.whatsapp.replace(/\D/g,'') %>" target="_blank" rel="noopener">
+            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg></span>
+            WhatsApp: <%= settings.whatsapp %>
+          </a>
+          <a href="mailto:<%= settings.email %>">
+            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></span>
+            <%= settings.email %>
+          </a>
+        </div>
+        <div class="foot-col">
+          <h5>Factory Address</h5>
+          <li>
+            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+            <%= settings.address %>
+          </li>
+        </div>
+      </div>
+      <div class="foot-cta">
+        <div>
+          <h4>Get the full product catalog</h4>
+          <p>Download our wholesale &amp; OEM watch catalog (PDF) with specs and MOQ.</p>
+        </div>
+        <a href="/download-catalog" class="btn btn-light">Download Catalog</a>
+      </div>
+      <div class="foot-bottom">
+        <span><%= footer.copyright %></span>
+        <span>Wholesale & OEM/ODM Manufacturer · Global B2B Supply</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    document.getElementById('navToggle').addEventListener('click', () => document.getElementById('navMenu').classList.toggle('open'));
+    document.querySelectorAll('#navMenu a').forEach(a => a.addEventListener('click', () => document.getElementById('navMenu').classList.remove('open')));
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.1});
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+  <%- script %>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<h1>OEM & ODM Service</h1>
+
+<form method="POST" action="/admin/oem" enctype="multipart/form-data" class="card">
+  <div class="two-col">
+    <div class="form-group">
+      <label>Section Title</label>
+      <input type="text" name="title" value="<%= oem.title %>" required>
+    </div>
+    <div class="form-group">
+      <label>Subtitle</label>
+      <input type="text" name="subtitle" value="<%= oem.subtitle %>" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea name="content" rows="4" required><%= oem.content %></textarea>
+  </div>
+
+  <h2>Service Data</h2>
+  <div class="three-col">
+    <div class="form-group">
+      <label>OEM Minimum MOQ</label>
+      <input type="text" name="moq" value="<%= oem.moq %>" required>
+    </div>
+    <div class="form-group">
+      <label>Sample Lead Time</label>
+      <input type="text" name="sample_lead" value="<%= oem.sample_lead %>" required>
+    </div>
+    <div class="form-group">
+      <label>Mass Production Lead Time</label>
+      <input type="text" name="mass_lead" value="<%= oem.mass_lead %>" required>
+    </div>
+  </div>
+
+  <h2>Service Cards</h2>
+  <div class="two-col">
+    <% oem.services.forEach((svc, idx) => { %>
+    <div class="card" style="padding:18px;">
+      <div class="form-group">
+        <label>Card Title</label>
+        <input type="text" name="service_title_<%= idx %>" value="<%= svc.title %>" required>
+      </div>
+      <div class="form-group">
+        <label>Card Description</label>
+        <textarea name="service_desc_<%= idx %>" rows="3" required><%= svc.desc %></textarea>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+
+  <h2>Section Image</h2>
+  <div class="form-group">
+    <input type="file" name="image" accept="image/*">
+    <% if(oem.image){ %>
+      <div style="margin-top:10px;">
+        <img src="<%= oem.image %>" class="preview" alt="OEM">
+        <p class="hint"><%= oem.image %></p>
+      </div>
+    <% } else { %>
+      <div class="preview-placeholder" style="margin-top:10px;">No image uploaded</div>
+    <% } %>
+  </div>
+
+  <button type="submit" class="btn">Save OEM Section</button>
+</form>

@@ -1,0 +1,124 @@
+<h1>Quartz Watches</h1>
+
+<div class="card">
+  <h2>Add New Product</h2>
+  <form method="POST" action="/admin/products/add" enctype="multipart/form-data">
+    <div class="two-col">
+      <div class="form-group">
+        <label>Product Title</label>
+        <input type="text" name="title" required>
+      </div>
+      <div class="form-group">
+        <label>Model No.</label>
+        <input type="text" name="model">
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="form-group">
+        <label>Movement</label>
+        <input type="text" name="movement" value="Japanese Quartz">
+      </div>
+      <div class="form-group">
+        <label>MOQ</label>
+        <input type="text" name="moq" value="100 pcs">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea name="description" rows="3"></textarea>
+    </div>
+    <div class="two-col">
+      <div class="form-group">
+        <label>Sort Order</label>
+        <input type="number" name="sort_order" value="<%= products.length + 1 %>">
+      </div>
+      <div class="form-group">
+        <label>Product Image (800×800px white background recommended)</label>
+        <input type="file" name="image" accept="image/*">
+      </div>
+    </div>
+    <button type="submit" class="btn">Add Product</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Product List</h2>
+  <table>
+    <tr><th>Image</th><th>Title / Model</th><th>MOQ</th><th>Sort</th><th>Active</th><th>Actions</th></tr>
+    <% products.forEach(p => { %>
+    <tr>
+      <td>
+        <% if(p.image){ %>
+          <img src="<%= p.image %>" class="preview" alt="<%= p.title %>">
+        <% } else { %>
+          <div class="preview-placeholder">No image</div>
+        <% } %>
+      </td>
+      <td>
+        <strong><%= p.title %></strong><br>
+        <span class="hint"><%= p.model || '—' %> · <%= p.movement %></span>
+      </td>
+      <td><%= p.moq %></td>
+      <td><%= p.sort_order %></td>
+      <td><%= p.active ? 'Yes' : 'No' %></td>
+      <td>
+        <button class="btn btn-sm btn-secondary" onclick="toggleEdit('<%= p.id %>')">Edit</button>
+        <form method="POST" action="/admin/products/<%= p.id %>/delete" style="display:inline;" onsubmit="return confirm('Delete this product?')">
+          <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <tr id="edit-<%= p.id %>" style="display:none;background:#fafafa;">
+      <td colspan="6" style="padding:20px;">
+        <form method="POST" action="/admin/products/<%= p.id %>" enctype="multipart/form-data">
+          <div class="two-col">
+            <div class="form-group">
+              <label>Product Title</label>
+              <input type="text" name="title" value="<%= p.title %>" required>
+            </div>
+            <div class="form-group">
+              <label>Model No.</label>
+              <input type="text" name="model" value="<%= p.model %>">
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="form-group">
+              <label>Movement</label>
+              <input type="text" name="movement" value="<%= p.movement %>">
+            </div>
+            <div class="form-group">
+              <label>MOQ</label>
+              <input type="text" name="moq" value="<%= p.moq %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="3"><%= p.description %></textarea>
+          </div>
+          <div class="two-col">
+            <div class="form-group">
+              <label>Sort Order</label>
+              <input type="number" name="sort_order" value="<%= p.sort_order %>">
+            </div>
+            <div class="form-group">
+              <label>Replace Image</label>
+              <input type="file" name="image" accept="image/*">
+            </div>
+          </div>
+          <div class="form-group toggle">
+            <label><input type="checkbox" name="active" <%= p.active ? 'checked' : '' %>> Active</label>
+          </div>
+          <button type="submit" class="btn">Save Product</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </table>
+</div>
+
+<script>
+  function toggleEdit(id) {
+    const row = document.getElementById('edit-' + id);
+    row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+  }
+</script>

@@ -1,0 +1,23 @@
+<h1>Contact Us</h1>
+
+<form method="POST" action="/admin/contact" class="card">
+  <div class="two-col">
+    <div class="form-group">
+      <label>Section Title</label>
+      <input type="text" name="title" value="<%= contact.title %>" required>
+    </div>
+    <div class="form-group">
+      <label>Subtitle</label>
+      <input type="text" name="subtitle" value="<%= contact.subtitle %>" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <textarea name="content" rows="4" required><%= contact.content %></textarea>
+  </div>
+
+  <p class="hint" style="margin-bottom:16px;">WhatsApp number, email and address are managed in <a href="/admin/settings">Site Settings</a>.</p>
+
+  <button type="submit" class="btn">Save Contact Section</button>
+</form>

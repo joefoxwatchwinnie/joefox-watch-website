@@ -1,0 +1,21 @@
+<h1>Account Settings</h1>
+
+<form method="POST" action="/admin/account" class="card">
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" name="username" value="<%= settings.admin_username %>" required>
+  </div>
+
+  <div class="two-col">
+    <div class="form-group">
+      <label>New Password</label>
+      <input type="password" name="password" placeholder="Leave blank to keep current">
+    </div>
+    <div class="form-group">
+      <label>Confirm New Password</label>
+      <input type="password" name="password_confirm" placeholder="Leave blank to keep current">
+    </div>
+  </div>
+
+  <button type="submit" class="btn">Update Account</button>
+</form>
