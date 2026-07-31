@@ -14,6 +14,3 @@ services:
       - name: joefox-data
         mountPath: /app/data
         sizeGB: 1
-      - name: joefox-uploads
-        mountPath: /app/public/uploads
-        sizeGB: 1

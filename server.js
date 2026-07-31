@@ -21,6 +21,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Serve user uploads (persisted via the single Railway volume mounted at /app/data)
+// under /uploads so stored URLs (/uploads/<file>) keep working after the move.
+const dataUploadsDir = path.join(__dirname, 'data', 'uploads');
+fs.mkdirSync(dataUploadsDir, { recursive: true });
+app.use('/uploads', express.static(dataUploadsDir));
+
 app.use(session({
   secret: config.sessionSecret,
   resave: false,
@@ -213,7 +219,7 @@ app.post('/admin/settings', requireAuth, uploadMixed.fields([
 
 app.get('/download-catalog', (req, res) => {
   const pdf = db.getSettings().catalog_pdf;
-  const filePath = pdf ? path.join(__dirname, 'public', pdf.replace(/^\//, '')) : null;
+  const filePath = pdf ? path.join(__dirname, 'data', pdf.replace(/^\//, '')) : null;
   if (!pdf || !filePath || !fs.existsSync(filePath)) {
     flash(req, 'error', 'Catalog is not available yet. Please contact us for the latest product catalog.');
     return res.redirect('/contact');

@@ -10,7 +10,7 @@ RUN npm install --omit=dev
 COPY . .
 
 # Ensure data + uploads directories exist (multer also creates uploads)
-RUN mkdir -p /app/data /app/public/uploads
+RUN mkdir -p /app/data /app/data/uploads
 
 ENV PORT=3000 \
     NODE_ENV=production

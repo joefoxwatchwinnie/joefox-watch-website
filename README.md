@@ -48,7 +48,7 @@ npm start            # or: npm run dev  (auto-reload)
 9. **SEO / Page Meta** — per-page title + description for Google.
 10. **Account** — change admin username / password.
 
-All data is stored in `data/db.json`; uploaded images in `public/uploads/`.
+All data is stored in `data/db.json`; uploaded images and the catalog PDF live in `data/uploads/`.
 
 ## Image specs
 
@@ -86,15 +86,16 @@ This is a **Node.js server** (not a static site), so it needs a host that runs N
 1. Push this folder to a GitHub repo.
 2. Go to https://railway.app → **New Project → Deploy from GitHub**.
 3. It auto-detects the Dockerfile and deploys.
-4. **Important:** add two **Volumes** so your images and DB survive restarts:
-   - mount `/app/data` (size 1 GB)
-   - mount `/app/public/uploads` (size 1 GB)
+4. **Important:** add **one Volume** mounted at `/app/data` (size 1 GB). This single
+   volume persists BOTH the CMS database (`db.json`) and all uploaded images/PDFs
+   (`data/uploads/`). Railway allows only one volume per service, so we consolidated
+   both into `/app/data` — do **not** add a second volume.
 5. Set env var `SESSION_SECRET` to a random string.
 6. Your site is live at the Railway URL; point your domain `www.joefoxwatchofficial.com` to it and update **Site Settings → site domain** so sitemap/canonical match.
 
 ### Option B — Render (free tier)
 1. Push to GitHub, then https://render.com → **New → Web Service** → connect repo.
-2. Render uses `render.yaml` automatically (Docker runtime + 2 disks).
+2. Render uses `render.yaml` automatically (Docker runtime + 1 disk at /app/data).
 3. Set `SESSION_SECRET`.
 4. Attach a custom domain `www.joefoxwatchofficial.com` in Render, then update **Site Settings**.
 
@@ -103,14 +104,13 @@ This is a **Node.js server** (not a static site), so it needs a host that runs N
 docker build -t joefox-cms .
 docker run -d -p 3000:3000 \
   -v joefox-data:/app/data \
-  -v joefox-uploads:/app/public/uploads \
   -e SESSION_SECRET=your-random-string \
   --name joefox-cms joefox-cms
 ```
 Put it behind Nginx/Caddy with HTTPS and a domain.
 
 ### Why the volumes / disks matter
-The CMS writes `data/db.json` and uploaded files to the local filesystem. On platforms with **ephemeral** storage, those would reset on every redeploy. Mounting the two paths above as a persistent disk keeps your content and images safe. (If you prefer a database later, the data layer in `lib/db.js` is the only file to swap.)
+The CMS writes `data/db.json` and uploaded files (`data/uploads/`) to the local filesystem. On platforms with **ephemeral** storage, those would reset on every redeploy. Mounting a single persistent disk/volume at `/app/data` keeps both your content and images safe. (If you prefer a database later, the data layer in `lib/db.js` is the only file to swap.)
 
 ## Environment variables
 
