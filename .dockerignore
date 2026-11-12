@@ -1,0 +1,9 @@
+node_modules
+.git
+.gitignore
+data/uploads
+data/.gitkeep
+static-export
+*.log
+.DS_Store
+.workbuddy
