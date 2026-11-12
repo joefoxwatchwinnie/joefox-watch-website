@@ -545,6 +545,20 @@ function setByPath(obj, pathStr, value) {
   cur[parts[parts.length - 1]] = value;
 }
 
+// Path-preserving upload into the persistent volume (bulk product image sync)
+app.post('/admin/upload-image', requireAuth, upload.single('file'), (req, res) => {
+  const rel = String(req.body.relpath || '').replace(/\\/g, '/').replace(/^\/+/, '').replace(/^uploads\//, '');
+  if (!rel || rel.includes('..') || !/\.(jpe?g|png|gif|webp|ico|svg)$/i.test(rel)) {
+    return res.status(400).json({ error: 'bad relpath' });
+  }
+  const dest = path.join(dataUploadsDir, rel);
+  if (!dest.startsWith(dataUploadsDir)) return res.status(400).json({ error: 'bad relpath' });
+  fs.mkdirSync(path.dirname(dest), { recursive: true });
+  fs.copyFileSync(req.file.path, dest);
+  fs.unlinkSync(req.file.path);
+  res.json({ ok: true, path: '/uploads/' + rel });
+});
+
 app.get('/admin/factory-page', requireAuth, (req, res) => {
   res.render('admin/factory-page', { page: 'factory-page', title: 'Factory Page Content', fp: db.getFactoryPage() || {} });
 });
