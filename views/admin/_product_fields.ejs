@@ -1,0 +1,116 @@
+<%
+  const pp = p || {};
+  const tiers = pp.tiers || [];
+  const specs = pp.specs || {};
+  const featText = (pp.features || []).join('\n');
+  const galText = (pp.gallery || []).join('\n');
+%>
+<div class="two-col">
+  <div class="form-group">
+    <label>Model No.</label>
+    <input type="text" name="model" value="<%= pp.model || '' %>" required>
+  </div>
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" name="name" value="<%= pp.name || '' %>">
+  </div>
+</div>
+<div class="two-col">
+  <div class="form-group">
+    <label>Series</label>
+    <select name="series">
+      <option value="dual-movement" <%= pp.series==='dual-movement'?'selected':'' %>>Dual-Movement</option>
+      <option value="quartz" <%= pp.series==='quartz'?'selected':'' %>>Quartz</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Short Title (subtitle line)</label>
+    <input type="text" name="title" value="<%= pp.title || '' %>">
+  </div>
+</div>
+<div class="two-col">
+  <div class="form-group">
+    <label>Movement</label>
+    <input type="text" name="movement" value="<%= pp.movement || 'Chinese Quartz Movement' %>">
+  </div>
+  <div class="form-group">
+    <label>Japanese Movement Option (shown as note)</label>
+    <input type="text" name="japanese_option" value="<%= pp.japanese_option || '' %>" placeholder="Japanese Quartz Movement optional, extra ¥8 per piece">
+  </div>
+</div>
+<div class="three-col">
+  <div class="form-group">
+    <label>MOQ Monochrome (pcs)</label>
+    <input type="text" name="moq_mono" value="<%= pp.moq_mono || '100' %>">
+  </div>
+  <div class="form-group">
+    <label>MOQ Mixed Color (pcs)</label>
+    <input type="text" name="moq_mixed" value="<%= pp.moq_mixed || '' %>">
+  </div>
+  <div class="form-group">
+    <label>Colors Available</label>
+    <input type="number" name="colors" value="<%= pp.colors || '' %>">
+  </div>
+</div>
+
+<h2>FOB Tier Prices (CNY per piece)</h2>
+<div class="four-col">
+  <% for (let i = 0; i < 4; i++) { const tr = tiers[i]; %>
+  <div class="form-group">
+    <label>Qty <%= i === 3 ? '1000+' : (['100','300','500'][i]) %> / Price</label>
+    <div style="display:flex;gap:8px;">
+      <input type="text" name="tier_qty_<%= i %>" placeholder="100" value="<%= tr ? tr.qty : ['100','300','500','1000+'][i] %>" style="width:45%;">
+      <input type="number" step="0.01" name="tier_price_<%= i %>" placeholder="26.00" value="<%= tr ? tr.price : '' %>">
+    </div>
+  </div>
+  <% } %>
+</div>
+
+<h2>Specifications</h2>
+<div class="four-col">
+  <div class="form-group">
+    <label>Case Thickness</label>
+    <input type="text" name="spec_thickness" value="<%= specs.case_thickness || '' %>">
+  </div>
+  <div class="form-group">
+    <label>Case Diameter</label>
+    <input type="text" name="spec_diameter" value="<%= specs.case_diameter || '' %>">
+  </div>
+  <div class="form-group">
+    <label>Band Width</label>
+    <input type="text" name="spec_band" value="<%= specs.band_width || '' %>">
+  </div>
+  <div class="form-group">
+    <label>Weight</label>
+    <input type="text" name="spec_weight" value="<%= specs.weight || '' %>">
+  </div>
+</div>
+<div class="three-col">
+  <div class="form-group">
+    <label>Crystal</label>
+    <input type="text" name="spec_crystal" value="<%= specs.crystal || 'Mineral Glass' %>">
+  </div>
+  <div class="form-group">
+    <label>Case Material</label>
+    <input type="text" name="spec_case" value="<%= specs.case || '' %>">
+  </div>
+  <div class="form-group">
+    <label>Strap Material</label>
+    <input type="text" name="spec_strap" value="<%= specs.strap || '' %>">
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="form-group">
+    <label>Features (one per line)</label>
+    <textarea name="features" rows="4" placeholder="Luminous Hands & Hour Markers&#10;3 ATM Water Resistant"><%= featText %></textarea>
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea name="description" rows="4"><%= pp.description || '' %></textarea>
+  </div>
+</div>
+<div class="form-group">
+  <label>Gallery image paths (one per line, e.g. /uploads/products/2812-c1.jpg)</label>
+  <textarea name="gallery" rows="3"><%= galText %></textarea>
+</div>

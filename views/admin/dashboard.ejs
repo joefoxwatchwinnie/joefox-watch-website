@@ -1,5 +1,24 @@
 <h1>Dashboard</h1>
 
+<div class="four-col" style="margin-bottom:24px;">
+  <div class="card" style="margin-bottom:0;">
+    <div style="font-size:1.9rem;font-weight:700;"><%= stats.products %></div>
+    <div style="color:#666;font-size:.85rem;">Total Products</div>
+  </div>
+  <div class="card" style="margin-bottom:0;">
+    <div style="font-size:1.9rem;font-weight:700;"><%= stats.inquiries %></div>
+    <div style="color:#666;font-size:.85rem;">Total Inquiries</div>
+  </div>
+  <div class="card" style="margin-bottom:0;">
+    <div style="font-size:1.9rem;font-weight:700;color:#c0392b;"><%= stats.newInquiries %></div>
+    <div style="color:#666;font-size:.85rem;">New (unread)</div>
+  </div>
+  <div class="card" style="margin-bottom:0;">
+    <div style="font-size:1.9rem;font-weight:700;"><%= stats.samples %></div>
+    <div style="color:#666;font-size:.85rem;">Sample Requests</div>
+  </div>
+</div>
+
 <div class="two-col">
   <div class="card">
     <h2>Site Preview</h2>
@@ -9,14 +28,34 @@
   <div class="card">
     <h2>Quick Links</h2>
     <div style="display:flex;flex-direction:column;gap:8px;">
-      <a href="/admin/settings">Site Settings & Contact Info</a>
-      <a href="/admin/banners">Home Banners</a>
-      <a href="/admin/highlights">Home Highlights (4-col)</a>
-      <a href="/admin/products">Quartz Watches</a>
+      <a href="/admin/inquiries">Inquiries & Sample Requests</a>
+      <a href="/admin/products">Product Catalog</a>
+      <a href="/admin/settings">Site Settings, Currency & SMTP Mail</a>
       <a href="/admin/pages">SEO / Page Meta</a>
       <a href="/admin/account">Change Password</a>
     </div>
   </div>
+</div>
+
+<div class="card">
+  <h2>Latest Inquiries</h2>
+  <% if (!recent.length) { %>
+    <p style="color:#666;font-size:.9rem;">No inquiries yet. Inquiries submitted on the website will be archived here.</p>
+  <% } else { %>
+  <table>
+    <tr><th>Date</th><th>Type</th><th>Name / Company</th><th>Product</th><th>Status</th><th></th></tr>
+    <% recent.forEach(q => { %>
+    <tr>
+      <td style="white-space:nowrap;"><%= q.created_at.slice(0,16).replace('T',' ') %></td>
+      <td><%= q.type === 'sample' ? 'Sample' : 'Inquiry' %></td>
+      <td><%= q.name %><br><span style="color:#888;font-size:.8rem;"><%= q.company || '' %></span></td>
+      <td><%= q.product_model || '-' %></td>
+      <td><%= q.status %></td>
+      <td><a href="/admin/inquiries" class="btn btn-sm">View</a></td>
+    </tr>
+    <% }) %>
+  </table>
+  <% } %>
 </div>
 
 <div class="card">
@@ -27,9 +66,9 @@
     <tr><td>Home Highlights</td><td>4-column core advantages</td><td><a href="/admin/highlights" class="btn btn-sm">Edit</a></td></tr>
     <tr><td>Our Factory</td><td>Text + image + stats</td><td><a href="/admin/factory" class="btn btn-sm">Edit</a></td></tr>
     <tr><td>OEM & ODM Service</td><td>Text + 3 stats + 4 service cards</td><td><a href="/admin/oem" class="btn btn-sm">Edit</a></td></tr>
-    <tr><td>Quartz Watches</td><td>Product cards</td><td><a href="/admin/products" class="btn btn-sm">Edit</a></td></tr>
+    <tr><td>Product Catalog</td><td><%= stats.activeProducts %> active products</td><td><a href="/admin/products" class="btn btn-sm">Edit</a></td></tr>
     <tr><td>Our Advantages</td><td>5 advantage items</td><td><a href="/admin/advantages" class="btn btn-sm">Edit</a></td></tr>
     <tr><td>Contact Us</td><td>Text + WhatsApp/Email</td><td><a href="/admin/contact" class="btn btn-sm">Edit</a></td></tr>
-    <tr><td>SEO / Page Meta</td><td>5 pages title & description</td><td><a href="/admin/pages" class="btn btn-sm">Edit</a></td></tr>
+    <tr><td>SEO / Page Meta</td><td>Pages title & description</td><td><a href="/admin/pages" class="btn btn-sm">Edit</a></td></tr>
   </table>
 </div>

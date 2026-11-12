@@ -1,0 +1,90 @@
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">Sample Program</div>
+      <h1><%= t('nav.sample') %></h1>
+      <p>Evaluate quality before bulk order — sample support for wholesale, OEM and private label projects.</p>
+    </div>
+  </section>
+
+  <section class="sample-section">
+    <div class="wrap">
+      <div class="sample-grid">
+        <div class="sample-info reveal">
+          <h3>How sampling works</h3>
+          <ul class="steps">
+            <li><span>1</span><div><strong>Pick models</strong>Tell us which models and colors you want to evaluate.</div></li>
+            <li><span>2</span><div><strong>Confirm sample cost</strong>We quote sample fee & courier — deducted from bulk orders.</div></li>
+            <li><span>3</span><div><strong>Receive & test</strong>Samples shipped in 7–15 days depending on customization.</div></li>
+            <li><span>4</span><div><strong>Place bulk order</strong>Proceed to bulk production with tier pricing.</div></li>
+          </ul>
+          <div class="sample-contact">
+            <a href="<%= whatsappLink %>" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp: <%= settings.whatsapp %></a>
+            <a href="mailto:<%= settings.email %>" class="btn btn-outline"><%= t('common.email') %>: <%= settings.email %></a>
+          </div>
+        </div>
+
+        <form class="sample-form reveal" method="post" action="/sample-request">
+          <% if (preselect) { %>
+            <input type="hidden" name="product_id" value="<%= preselect %>">
+          <% } else { %>
+          <div class="frow">
+            <label><%= t('form.product_interest') %></label>
+            <select name="product_id">
+              <option value="">— General sample request —</option>
+              <% products.forEach(p => { %>
+                <option value="<%= p.id %>"><%= p.model %> — <%= p.name %> <%= p.title ? '(' + p.title + ')' : '' %></option>
+              <% }) %>
+            </select>
+          </div>
+          <% } %>
+          <div class="frow two">
+            <div><label><%= t('form.name') %> *</label><input name="name" required></div>
+            <div><label><%= t('form.company') %></label><input name="company"></div>
+          </div>
+          <div class="frow two">
+            <div><label><%= t('form.email') %> *</label><input type="email" name="email" required></div>
+            <div><label><%= t('form.phone') %></label><input name="phone" placeholder="WhatsApp preferred"></div>
+          </div>
+          <div class="frow two">
+            <div><label><%= t('form.country') %></label><input name="country"></div>
+            <div><label><%= t('form.quantity') %></label><input name="quantity" placeholder="Planned bulk quantity"></div>
+          </div>
+          <div class="frow">
+            <label><%= t('form.message') %> *</label>
+            <textarea name="message" rows="4" required placeholder="Models, colors, logo/printing needs, delivery address..."></textarea>
+          </div>
+          <button type="submit" class="btn" style="width:100%;"><%= t('form.submit_sample') %></button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+  section{padding:70px 0;}
+  .page-hero{background:var(--ink);color:#fff;padding:130px 0 70px;}
+  .page-hero .eyebrow{color:rgba(255,255,255,.6);}
+  .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;margin-bottom:14px;}
+  .page-hero p{color:rgba(255,255,255,.75);font-size:1.1rem;max-width:640px;}
+  .sample-section{background:var(--gray-100);}
+  .sample-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:32px;align-items:start;}
+  .sample-info,.sample-form{background:#fff;border:1px solid var(--gray-300);border-radius:var(--radius);padding:36px;}
+  .sample-info h3{font-size:1.3rem;font-weight:700;margin-bottom:20px;}
+  .steps li{display:flex;gap:14px;margin-bottom:20px;}
+  .steps span{flex:0 0 34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;}
+  .steps strong{display:block;font-size:.98rem;}
+  .steps div{font-size:.9rem;color:var(--gray-700);}
+  .sample-contact{display:flex;flex-direction:column;gap:10px;margin-top:26px;}
+  .frow{margin-bottom:16px;}
+  .frow.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .frow label{display:block;font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:6px;}
+  .frow input,.frow textarea,.frow select{width:100%;border:1px solid var(--gray-300);border-radius:var(--radius);padding:11px 14px;font-size:.92rem;font-family:inherit;background:var(--gray-100);transition:.2s;}
+  .frow input:focus,.frow textarea:focus,.frow select:focus{outline:none;border-color:var(--ink);background:#fff;}
+  @media(max-width:900px){
+    section{padding:56px 0;}
+    .page-hero{padding:110px 0 56px;}
+    .sample-grid{grid-template-columns:1fr;}
+    .frow.two{grid-template-columns:1fr;}
+  }
+</style>

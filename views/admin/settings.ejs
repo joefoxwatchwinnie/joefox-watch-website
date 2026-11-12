@@ -28,6 +28,68 @@
     <textarea name="meta_description"><%= settings.meta_description %></textarea>
   </div>
 
+  <div class="two-col">
+    <div class="form-group">
+      <label>Site URL (for SEO / sitemap)</label>
+      <input type="text" name="site_url" value="<%= settings.site_url || '' %>" placeholder="https://www.joefoxwatchofficial.com">
+    </div>
+    <div class="form-group">
+      <label>Default Display Currency</label>
+      <select name="currency_default">
+        <% Object.keys(settings.currency_rates || { CNY: 1 }).forEach(c => { %>
+          <option value="<%= c %>" <%= (settings.currency_default || 'USD') === c ? 'selected' : '' %>><%= c %></option>
+        <% }) %>
+      </select>
+    </div>
+  </div>
+
+  <h2>Multi-Currency Rates (base: CNY 1.00)</h2>
+  <p class="hint" style="margin-bottom:12px;">Visitors switch currency in the navigation bar. Prices in the catalog are converted using these rates — update them to match your quotations.</p>
+  <div class="form-group">
+    <label>Rates JSON (currency → CNY rate)</label>
+    <textarea name="currency_rates" rows="3"><%= JSON.stringify(settings.currency_rates || {}) %></textarea>
+  </div>
+  <div class="form-group">
+    <label>Symbols JSON (currency → prefix symbol)</label>
+    <textarea name="currency_symbols" rows="3"><%= JSON.stringify(settings.currency_symbols || {}) %></textarea>
+  </div>
+
+  <h2>Inquiry Email Notification (SMTP)</h2>
+  <p class="hint" style="margin-bottom:12px;">When configured, every website inquiry sends (1) a notification to your email and (2) an auto-reply to the customer. Leave empty to disable — inquiries are always archived in "Inquiries & Samples". Example host: smtp.gmail.com, port 465, secure on.</p>
+  <div class="two-col">
+    <div class="form-group">
+      <label>SMTP Host</label>
+      <input type="text" name="smtp_host" value="<%= settings.smtp_host || '' %>" placeholder="smtp.gmail.com">
+    </div>
+    <div class="form-group">
+      <label>SMTP Port</label>
+      <input type="text" name="smtp_port" value="<%= settings.smtp_port || '465' %>">
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="form-group">
+      <label>SMTP User</label>
+      <input type="text" name="smtp_user" value="<%= settings.smtp_user || '' %>" placeholder="you@gmail.com">
+    </div>
+    <div class="form-group">
+      <label>SMTP Password / App Password</label>
+      <input type="password" name="smtp_pass" value="" placeholder="<%= settings.smtp_pass ? '(unchanged)' : 'leave empty if not changing' %>">
+    </div>
+  </div>
+  <div class="two-col">
+    <div class="form-group">
+      <label>From Address (optional)</label>
+      <input type="text" name="smtp_from" value="<%= settings.smtp_from || '' %>">
+    </div>
+    <div class="form-group">
+      <label>Use SSL/TLS (port 465)</label>
+      <select name="smtp_secure">
+        <option value="1" <%= settings.smtp_secure !== '0' ? 'selected' : '' %>>Yes (recommended)</option>
+        <option value="0" <%= settings.smtp_secure === '0' ? 'selected' : '' %>>No (STARTTLS, port 587)</option>
+      </select>
+    </div>
+  </div>
+
   <h2>Logo Uploads</h2>
     <p class="hint" style="margin-bottom:16px;">Upload a transparent PNG. "Dark background logo" is used on the dark hero banner; "Light background logo" is used on the white navigation bar. If you only have a white logo, check "Invert nav logo" below so it becomes dark on the white nav.</p>
 

@@ -5,16 +5,22 @@
   <%
     const pageLabels = {
       home: 'Home',
+      products: 'Watch Catalog (All)',
+      dual: 'Dual-Movement Watches',
+      quartz: 'Quartz Watches',
       factory: 'Our Factory',
       oem: 'OEM & ODM Service',
-      quartz: 'Quartz Watches',
+      sample: 'Sample Request',
       contact: 'Contact Us'
     };
     const pagePaths = {
       home: '/',
+      products: '/products',
+      dual: '/products?series=dual-movement',
+      quartz: '/quartz-watches',
       factory: '/our-factory',
       oem: '/oem-odm-service',
-      quartz: '/quartz-watches',
+      sample: '/sample-request',
       contact: '/contact'
     };
     Object.keys(pageLabels).forEach(k => {
@@ -22,11 +28,11 @@
   <h2><%= pageLabels[k] %> <span class="hint" style="font-weight:400;">(<%= pagePaths[k] %>)</span></h2>
   <div class="form-group">
     <label>Page Title (Meta Title)</label>
-    <input type="text" name="title_<%= k %>" value="<%= pages[k].title %>" required>
+    <input type="text" name="title_<%= k %>" value="<%= (pages[k] || {}).title || '' %>" required>
   </div>
   <div class="form-group">
     <label>Meta Description</label>
-    <textarea name="desc_<%= k %>"><%= pages[k].meta_description %></textarea>
+    <textarea name="desc_<%= k %>"><%= (pages[k] || {}).meta_description || '' %></textarea>
   </div>
   <% }); %>
   <button type="submit" class="btn">Save Page SEO</button>

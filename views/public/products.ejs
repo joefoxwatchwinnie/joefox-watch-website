@@ -1,0 +1,115 @@
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <div class="eyebrow">B2B Wholesale Catalog</div>
+      <h1><%= t('catalog.title') %></h1>
+      <p><%= t('catalog.subtitle') %> · <%= t('common.fob_note') %></p>
+    </div>
+  </section>
+
+  <section class="catalog-section">
+    <div class="wrap">
+      <form class="filter-bar" method="get" action="/products">
+        <select name="series">
+          <option value=""><%= t('catalog.all_series') %></option>
+          <option value="dual-movement" <%= filters.series==='dual-movement'?'selected':'' %>>Dual-Movement (Analog + Digital)</option>
+          <option value="quartz" <%= filters.series==='quartz'?'selected':'' %>>Quartz Watches</option>
+        </select>
+        <select name="movement">
+          <option value="">All Movements</option>
+          <option value="chinese" <%= filters.movement==='chinese'?'selected':'' %>>Chinese Quartz</option>
+          <option value="japanese" <%= filters.movement==='japanese'?'selected':'' %>>Japanese Quartz</option>
+        </select>
+        <input type="text" name="q" placeholder="<%= t('catalog.search') %>" value="<%= filters.q %>">
+        <button type="submit" class="btn">Search</button>
+        <span class="result-count"><%= products.length %> <%= t('catalog.results') %></span>
+      </form>
+
+      <div class="catalog-grid">
+        <% products.forEach(p => {
+          const minTier = p.tiers && p.tiers.length ? p.tiers[p.tiers.length-1] : null;
+        %>
+        <a class="product-card reveal" href="/product/<%= p.id %>">
+          <div class="pc-img">
+            <img src="<%= p.image %>" alt="<%= p.model %> <%= p.name %>" loading="lazy" onerror="this.src='/assets/placeholders/product.svg'">
+            <% if (p.colors) { %><span class="pc-colors"><%= p.colors %> colors</span><% } %>
+          </div>
+          <div class="pc-body">
+            <div class="pc-model"><%= p.model %></div>
+            <h3><%= p.name %></h3>
+            <p class="pc-title"><%= p.title %></p>
+            <div class="pc-meta">
+              <span><%= t('common.moq') %>: <%= p.moq_mono || 100 %> pcs</span>
+              <% if (minTier) { %>
+                <span class="pc-price">from <%= fmtPrice(minTier.price) %>/pc</span>
+              <% } %>
+            </div>
+            <div class="pc-cta"><%= t('common.view_details') %> →</div>
+          </div>
+        </a>
+        <% }) %>
+      </div>
+      <% if (!products.length) { %>
+        <p class="empty">No products match your filters. <a href="/products" style="text-decoration:underline;">Clear filters</a> or contact us for a custom request.</p>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="catalog-cta">
+    <div class="wrap">
+      <div class="cta-inner reveal">
+        <div>
+          <h2>Need full specifications & tier pricing?</h2>
+          <p>Download the complete PDF catalog or send us your target models and quantity — quotation within 24 hours.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="/download-catalog" class="btn btn-light">Download Catalog</a>
+          <a href="/contact" class="btn btn-wa"><%= t('common.get_quote') %></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+  section{padding:70px 0;}
+  .page-hero{background:var(--ink);color:#fff;padding:130px 0 70px;}
+  .page-hero .eyebrow{color:rgba(255,255,255,.6);}
+  .page-hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:700;letter-spacing:-.02em;margin-bottom:14px;}
+  .page-hero p{color:rgba(255,255,255,.75);font-size:1.1rem;max-width:720px;}
+
+  .catalog-section{background:var(--gray-100);padding-top:46px;}
+  .filter-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid var(--gray-300);border-radius:var(--radius);padding:16px 18px;margin-bottom:30px;}
+  .filter-bar select,.filter-bar input{border:1px solid var(--gray-300);border-radius:var(--radius);padding:10px 14px;font-size:.9rem;font-family:inherit;background:var(--gray-100);}
+  .filter-bar input{flex:1;min-width:180px;}
+  .result-count{font-size:.85rem;color:var(--gray-500);margin-left:auto;}
+
+  .catalog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+  .product-card{background:#fff;border:1px solid var(--gray-300);border-radius:var(--radius);overflow:hidden;transition:.3s var(--ease);display:flex;flex-direction:column;}
+  .product-card:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,.1);border-color:var(--gray-500);}
+  .pc-img{position:relative;background:#fff;border-bottom:1px solid var(--gray-300);aspect-ratio:1.15;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .pc-img img{width:100%;height:100%;object-fit:cover;}
+  .pc-colors{position:absolute;top:10px;right:10px;background:rgba(17,17,17,.85);color:#fff;font-size:.68rem;font-weight:600;padding:4px 10px;border-radius:999px;letter-spacing:.04em;}
+  .pc-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1;}
+  .pc-model{font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--gray-500);text-transform:uppercase;}
+  .pc-body h3{font-size:1.05rem;font-weight:700;}
+  .pc-title{font-size:.8rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.04em;}
+  .pc-meta{display:flex;justify-content:space-between;gap:8px;margin-top:auto;padding-top:12px;font-size:.82rem;color:var(--gray-700);flex-wrap:wrap;}
+  .pc-price{font-weight:700;color:var(--ink);}
+  .pc-cta{margin-top:10px;font-size:.82rem;font-weight:600;}
+  .empty{padding:40px;text-align:center;color:var(--gray-700);}
+
+  .catalog-cta{background:var(--ink);color:#fff;padding:64px 0;}
+  .cta-inner{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;}
+  .cta-inner h2{font-size:1.5rem;font-weight:700;margin-bottom:6px;}
+  .cta-inner p{color:rgba(255,255,255,.7);font-size:.95rem;}
+  .cta-actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+  @media(max-width:1000px){.catalog-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:768px){
+    section{padding:56px 0;}
+    .page-hero{padding:110px 0 56px;}
+    .catalog-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
+  }
+  @media(max-width:520px){.catalog-grid{grid-template-columns:1fr;}}
+</style>

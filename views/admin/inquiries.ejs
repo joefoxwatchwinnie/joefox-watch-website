@@ -1,0 +1,70 @@
+<h1>Inquiries & Sample Requests</h1>
+
+<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;">
+  <a href="/admin/inquiries" class="btn btn-sm <%= !status ? '' : 'btn-secondary' %>">All (<%= counts.all %>)</a>
+  <a href="/admin/inquiries?status=new" class="btn btn-sm <%= status==='new' ? '' : 'btn-secondary' %>">New (<%= counts.new %>)</a>
+  <a href="/admin/inquiries?status=contacted" class="btn btn-sm <%= status==='contacted' ? '' : 'btn-secondary' %>">Contacted (<%= counts.contacted %>)</a>
+  <a href="/admin/inquiries?status=quoted" class="btn btn-sm <%= status==='quoted' ? '' : 'btn-secondary' %>">Quoted (<%= counts.quoted %>)</a>
+  <a href="/admin/inquiries?status=archived" class="btn btn-sm <%= status==='archived' ? '' : 'btn-secondary' %>">Archived (<%= counts.archived %>)</a>
+</div>
+
+<% if (!inquiries.length) { %>
+<div class="card"><p style="color:#666;">No inquiries here yet. All website inquiries and sample requests are archived in this list automatically.</p></div>
+<% } %>
+
+<% inquiries.forEach(q => { %>
+<div class="card">
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:flex-start;">
+    <div>
+      <strong style="font-size:1.05rem;"><%= q.name %></strong>
+      <% if (q.company) { %><span style="color:#666;"> · <%= q.company %></span><% } %>
+      <span class="hint" style="margin-left:10px;"><%= q.created_at.slice(0,16).replace('T',' ') %></span>
+      <div style="margin-top:6px;font-size:.85rem;color:#555;">
+        <span class="tag"><%= q.type === 'sample' ? '🎁 SAMPLE' : '📩 INQUIRY' %></span>
+        <span class="tag" style="background:<%= q.status==='new' ? '#fdecea;color:#b71c1c;' : '#eef;color:#335;' %>"><%= q.status.toUpperCase() %></span>
+        <% if (q.email_sent) { %><span class="tag" style="background:#e8f5e9;color:#1b5e20;">MAIL SENT</span><% } %>
+      </div>
+    </div>
+    <form method="POST" action="/admin/inquiries/<%= q.id %>/delete" onsubmit="return confirm('Delete this inquiry?')">
+      <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+    </form>
+  </div>
+
+  <table style="margin-top:16px;">
+    <tr><th style="width:120px;">Email</th><td><a href="mailto:<%= q.email %>"><%= q.email %></a></td></tr>
+    <tr><th>Phone / WA</th><td><%= q.phone || '—' %> <%= q.phone ? '<a href="https://wa.me/' + q.phone.replace(/\D/g,'') + '" target="_blank" style="color:#1b5e20;margin-left:8px;">(WhatsApp)</a>' : '' %></td></tr>
+    <tr><th>Country</th><td><%= q.country || '—' %></td></tr>
+    <tr><th>Product</th><td><%= q.product_model ? q.product_model + ' — ' + (q.product_name || '') : 'General' %> <%= q.product_id ? '<a href="/product/' + q.product_id + '" target="_blank">(view)</a>' : '' %></td></tr>
+    <tr><th>Quantity</th><td><%= q.quantity || '—' %></td></tr>
+    <tr><th>Message</th><td style="white-space:pre-wrap;"><%= q.message %></td></tr>
+  </table>
+
+  <% if (q.notes && q.notes.length) { %>
+    <h2>Notes</h2>
+    <% q.notes.forEach(n => { %>
+      <p style="font-size:.85rem;color:#555;">• <%= n.at.slice(0,10) %> — <%= n.text %></p>
+    <% }) %>
+  <% } %>
+
+  <form method="POST" action="/admin/inquiries/<%= q.id %>" style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
+    <div class="form-group" style="margin-bottom:0;flex:0 0 180px;">
+      <label>Status</label>
+      <select name="status">
+        <option value="new" <%= q.status==='new'?'selected':'' %>>New</option>
+        <option value="contacted" <%= q.status==='contacted'?'selected':'' %>>Contacted</option>
+        <option value="quoted" <%= q.status==='quoted'?'selected':'' %>>Quoted</option>
+        <option value="archived" <%= q.status==='archived'?'selected':'' %>>Archived</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin-bottom:0;flex:1;min-width:220px;">
+      <label>Add note (follow-up record)</label>
+      <input type="text" name="note" placeholder="e.g. Sent quotation v1, waiting for reply">
+    </div>
+    <button type="submit" class="btn">Update</button>
+  </form>
+</div>
+<% }) %>
+
+<style>
+  .tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.05em;background:#eef;color:#335;margin-right:6px;}
+</style>

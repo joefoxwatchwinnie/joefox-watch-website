@@ -1,0 +1,193 @@
+<%
+  const v = (path, fallback) => {
+    const parts = path.split('.');
+    let cur = fp;
+    for (const k of parts) { if (cur === undefined || cur === null) return fallback; cur = cur[k]; }
+    return cur === undefined || cur === null ? fallback : cur;
+  };
+  const lines = (path, n) => {
+    const arr = v(path, []);
+    const out = [];
+    for (let i = 0; i < n; i++) out.push(arr[i] || '');
+    return out;
+  };
+%>
+<h1><%= title %></h1>
+<p class="muted">Every word and image on the public "Our Factory" page is editable here. Leave a field empty to hide that item.</p>
+<% if (typeof flashMsg !== 'undefined' && flashMsg) { %><div class="alert"><%= flashMsg %></div><% } %>
+
+<form method="POST" action="/admin/factory-page" enctype="multipart/form-data">
+
+  <fieldset>
+    <legend>① Hero（首屏黑底大标题）</legend>
+    <div class="form-group"><label>小标签（Eyebrow）</label><input type="text" name="f_hero.eyebrow" value="<%= v('hero.eyebrow') %>"></div>
+    <div class="form-group"><label>大标题</label><input type="text" name="f_hero.title" value="<%= v('hero.title') %>"></div>
+    <div class="form-group"><label>副标题</label><textarea name="f_hero.subtitle" rows="2"><%= v('hero.subtitle') %></textarea></div>
+    <div class="two-col">
+      <div class="form-group"><label>背景图路径</label><input type="text" name="f_hero.image" value="<%= v('hero.image') %>"></div>
+      <div class="form-group"><label>上传新背景图（可选）</label><input type="file" name="img_hero.image" accept="image/*"></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>② 数据统计带（4 格大数字）</legend>
+    <div class="four-col">
+      <% lines('stats', 4).forEach((s, i) => { %>
+      <div class="stat-pair">
+        <div class="form-group"><label>数字 <%= i+1 %></label><input type="text" name="f_stats.<%= i %>.value" value="<%= s.value || '' %>"></div>
+        <div class="form-group"><label>说明 <%= i+1 %></label><input type="text" name="f_stats.<%= i %>.label" value="<%= s.label || '' %>"></div>
+      </div>
+      <% }) %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>③ About Us（公司简介）</legend>
+    <div class="two-col">
+      <div class="form-group"><label>小标签</label><input type="text" name="f_about.eyebrow" value="<%= v('about.eyebrow') %>"></div>
+      <div class="form-group"><label>标题</label><input type="text" name="f_about.heading" value="<%= v('about.heading') %>"></div>
+    </div>
+    <div class="form-group"><label>正文</label><textarea name="f_about.content" rows="4"><%= v('about.content') %></textarea></div>
+    <div class="form-group"><label>能力标签（每行一个）</label><textarea name="f_about.pills" rows="4"><%= (v('about.pills', []) || []).join('\n') %></textarea></div>
+    <div class="two-col">
+      <div class="form-group"><label>配图路径</label><input type="text" name="f_about.image" value="<%= v('about.image') %>"></div>
+      <div class="form-group"><label>上传新配图（可选）</label><input type="file" name="img_about.image" accept="image/*"></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>④ 里程碑时间线（4 项）</legend>
+    <div class="two-col">
+      <div class="form-group"><label>小标签</label><input type="text" name="f_milestones.eyebrow" value="<%= v('milestones.eyebrow') %>"></div>
+      <div class="form-group"><label>标题</label><input type="text" name="f_milestones.heading" value="<%= v('milestones.heading') %>"></div>
+    </div>
+    <% lines('milestones.items', 4).forEach((m, i) => { %>
+    <div class="item-box">
+      <strong>里程碑 <%= i+1 %></strong>
+      <div class="three-col">
+        <div class="form-group"><label>年份</label><input type="text" name="f_milestones.items.<%= i %>.year" value="<%= m.year || '' %>"></div>
+        <div class="form-group"><label>标题</label><input type="text" name="f_milestones.items.<%= i %>.title" value="<%= m.title || '' %>"></div>
+        <div class="form-group"><label>描述</label><input type="text" name="f_milestones.items.<%= i %>.text" value="<%= m.text || '' %>"></div>
+      </div>
+    </div>
+    <% }) %>
+  </fieldset>
+
+  <fieldset>
+    <legend>⑤ Why Choose Us（3 项）</legend>
+    <div class="two-col">
+      <div class="form-group"><label>小标签</label><input type="text" name="f_why.eyebrow" value="<%= v('why.eyebrow') %>"></div>
+      <div class="form-group"><label>标题</label><input type="text" name="f_why.heading" value="<%= v('why.heading') %>"></div>
+    </div>
+    <% lines('why.items', 3).forEach((m, i) => { %>
+    <div class="item-box">
+      <strong>优势 <%= i+1 %></strong>
+      <div class="form-group"><label>标题</label><input type="text" name="f_why.items.<%= i %>.title" value="<%= m.title || '' %>"></div>
+      <div class="form-group"><label>描述</label><textarea name="f_why.items.<%= i %>.text" rows="2"><%= m.text || '' %></textarea></div>
+    </div>
+    <% }) %>
+  </fieldset>
+
+  <fieldset>
+    <legend>⑥ 制造能力四宫格（4 项，可换图）</legend>
+    <div class="two-col">
+      <div class="form-group"><label>小标签</label><input type="text" name="f_capabilities.eyebrow" value="<%= v('capabilities.eyebrow') %>"></div>
+      <div class="form-group"><label>标题</label><input type="text" name="f_capabilities.heading" value="<%= v('capabilities.heading') %>"></div>
+    </div>
+    <% lines('capabilities.items', 4).forEach((m, i) => { %>
+    <div class="item-box">
+      <strong>能力 <%= i+1 %></strong>
+      <div class="three-col">
+        <div class="form-group"><label>角标（R&D / QC…）</label><input type="text" name="f_capabilities.items.<%= i %>.tag" value="<%= m.tag || '' %>"></div>
+        <div class="form-group"><label>名称</label><input type="text" name="f_capabilities.items.<%= i %>.label" value="<%= m.label || '' %>"></div>
+        <div class="form-group"><label>图片路径</label><input type="text" name="f_capabilities.items.<%= i %>.image" value="<%= m.image || '' %>"></div>
+      </div>
+      <div class="form-group"><label>上传新图（可选）</label><input type="file" name="img_capabilities.items.<%= i %>.image" accept="image/*"></div>
+    </div>
+    <% }) %>
+  </fieldset>
+
+  <fieldset>
+    <legend>⑦ 五步质检（5 项）</legend>
+    <div class="two-col">
+      <div class="form-group"><label>小标签</label><input type="text" name="f_qc.eyebrow" value="<%= v('qc.eyebrow') %>"></div>
+      <div class="form-group"><label>标题</label><input type="text" name="f_qc.heading" value="<%= v('qc.heading') %>"></div>
+    </div>
+    <% lines('qc.steps', 5).forEach((m, i) => { %>
+    <div class="item-box">
+      <strong>步骤 0<%= i+1 %></strong>
+      <div class="two-col">
+        <div class="form-group"><label>名称</label><input type="text" name="f_qc.steps.<%= i %>.title" value="<%= m.title || '' %>"></div>
+        <div class="form-group"><label>描述</label><input type="text" name="f_qc.steps.<%= i %>.text" value="<%= m.text || '' %>"></div>
+      </div>
+    </div>
+    <% }) %>
+    <div class="two-col">
+      <div class="form-group"><label>左图路径</label><input type="text" name="f_qc.images.0" value="<%= v('qc.images.0') %>"></div>
+      <div class="form-group"><label>右图路径</label><input type="text" name="f_qc.images.1" value="<%= v('qc.images.1') %>"></div>
+    </div>
+    <div class="two-col">
+      <div class="form-group"><label>上传左图（可选）</label><input type="file" name="img_qc.images.0" accept="image/*"></div>
+      <div class="form-group"><label>上传右图（可选）</label><input type="file" name="img_qc.images.1" accept="image/*"></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>⑧ OEM & ODM 流程（4 步 + 可定制项）</legend>
+    <div class="two-col">
+      <div class="form-group"><label>小标签</label><input type="text" name="f_process.eyebrow" value="<%= v('process.eyebrow') %>"></div>
+      <div class="form-group"><label>标题</label><input type="text" name="f_process.heading" value="<%= v('process.heading') %>"></div>
+    </div>
+    <% lines('process.steps', 4).forEach((m, i) => { %>
+    <div class="item-box">
+      <strong>流程 <%= i+1 %></strong>
+      <div class="form-group"><label>名称</label><input type="text" name="f_process.steps.<%= i %>.title" value="<%= m.title || '' %>"></div>
+      <div class="form-group"><label>描述</label><textarea name="f_process.steps.<%= i %>.text" rows="2"><%= m.text || '' %></textarea></div>
+    </div>
+    <% }) %>
+    <div class="two-col">
+      <div class="form-group"><label>可定制项栏目标签</label><input type="text" name="f_process.custom_label" value="<%= v('process.custom_label') %>"></div>
+      <div class="form-group"><label>可定制项（每行一个，最多 6）</label><textarea name="f_process.custom_items" rows="5"><%= (v('process.custom_items', []) || []).join('\n') %></textarea></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>⑨ 大客户背书（Walmart / Lidl）</legend>
+    <div class="two-col">
+      <div class="form-group"><label>小标签</label><input type="text" name="f_trust.eyebrow" value="<%= v('trust.eyebrow') %>"></div>
+      <div class="form-group"><label>标题</label><input type="text" name="f_trust.heading" value="<%= v('trust.heading') %>"></div>
+    </div>
+    <% lines('trust.clients', 2).forEach((m, i) => { %>
+    <div class="item-box">
+      <strong>客户 <%= i+1 %></strong>
+      <div class="form-group"><label>名称</label><input type="text" name="f_trust.clients.<%= i %>.name" value="<%= m.name || '' %>"></div>
+      <div class="form-group"><label>描述</label><input type="text" name="f_trust.clients.<%= i %>.text" value="<%= m.text || '' %>"></div>
+    </div>
+    <% }) %>
+    <div class="form-group"><label>补充说明（斜体）</label><input type="text" name="f_trust.note" value="<%= v('trust.note') %>"></div>
+    <div class="two-col">
+      <div class="form-group"><label>配图路径</label><input type="text" name="f_trust.image" value="<%= v('trust.image') %>"></div>
+      <div class="form-group"><label>上传新配图（可选）</label><input type="file" name="img_trust.image" accept="image/*"></div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>⑩ 底部 CTA</legend>
+    <div class="two-col">
+      <div class="form-group"><label>标题</label><input type="text" name="f_cta.title" value="<%= v('cta.title') %>"></div>
+      <div class="form-group"><label>说明文字</label><input type="text" name="f_cta.text" value="<%= v('cta.text') %>"></div>
+    </div>
+  </fieldset>
+
+  <button type="submit" class="btn">Save All Changes</button>
+</form>
+
+<style>
+  fieldset{border:1px solid var(--gray-300,#ddd);border-radius:8px;padding:18px 20px;margin-bottom:22px;}
+  fieldset legend{font-weight:700;font-size:.95rem;padding:0 8px;}
+  .item-box{border:1px dashed var(--gray-300,#ccc);border-radius:6px;padding:12px 14px;margin:10px 0;}
+  .item-box strong{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--gray-500,#888);}
+  .stat-pair{display:flex;gap:10px;}
+  .stat-pair .form-group{flex:1;}
+  .muted{color:var(--gray-500,#888);font-size:.9rem;}
+</style>

@@ -2,8 +2,15 @@ node_modules/
 .env
 *.log
 .DS_Store
-# Keep the folders, ignore their contents (user uploads / local data)
-public/uploads/*
+
+# Runtime data belongs in the volume, not the repo (no customer inquiries in git)
 data/*
-!public/uploads/.gitkeep
 !data/.gitkeep
+
+# Uploads: bundled catalog images ship with the repo, new uploads come from the volume
+public/uploads/*
+!public/uploads/.gitkeep
+!public/uploads/products/
+!public/uploads/quartz/
+!public/uploads/factory/
+!public/uploads/catalog/

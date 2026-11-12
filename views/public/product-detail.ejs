@@ -1,0 +1,242 @@
+<main>
+  <section class="pd-section">
+    <div class="wrap">
+      <div class="breadcrumb"><a href="/">Home</a> / <a href="/products">Products</a> / <span><%= product.model %> <%= product.name %></span></div>
+
+      <div class="pd-grid">
+        <div class="pd-gallery reveal">
+          <div class="pd-main-img"><img id="pdMain" src="<%= product.image %>" alt="<%= product.model %> <%= product.name %>" onerror="this.src='/assets/placeholders/product.svg'"></div>
+          <% const shots = [product.image].concat(product.gallery||[]); %>
+          <% if (shots.length > 1) { %>
+          <div class="pd-thumbs">
+            <% shots.forEach((s,i) => { %>
+              <img src="<%= s %>" class="pd-thumb <%= i===0?'on':'' %>" data-src="<%= s %>" alt="view <%= i+1 %>" loading="lazy" onerror="this.style.display='none'">
+            <% }) %>
+          </div>
+          <% } %>
+        </div>
+
+        <div class="pd-info reveal">
+          <div class="pd-eyebrow"><%= t('common.moq') %> <%= product.moq_mono || 100 %> pcs · OEM & LOGO · <%= product.colors || 'Multiple' %> COLORS AVAILABLE</div>
+          <h1><%= product.model %> — <%= product.name %></h1>
+          <p class="pd-title"><%= product.title %></p>
+
+          <% if (product.tiers && product.tiers.length) { %>
+          <div class="tier-table">
+            <h3><%= t('detail.price_tiers') %></h3>
+            <table>
+              <thead><tr><th><%= t('detail.qty') %></th><th><%= t('detail.price') %></th></tr></thead>
+              <tbody>
+                <% product.tiers.forEach(tr => { %>
+                <tr><td><%= tr.qty %> pcs</td><td class="price"><%= fmtPrice(tr.price) %></td></tr>
+                <% }) %>
+              </tbody>
+            </table>
+            <p class="tier-note">FOB Guangzhou/Shenzhen · shipping &amp; duties not included · CNY reference available via currency switcher</p>
+          </div>
+          <% } %>
+
+          <% if (product.gold_option) { %>
+            <p class="jap-note">ⓘ Tone option — <%= product.gold_option %></p>
+          <% } %>
+          <% if (product.specs && product.specs.solid_steel) { %>
+            <p class="jap-note">ⓘ Strap option — <%= product.specs.solid_steel.replace(/[（）]/g,'') %></p>
+          <% } %>
+          <% if (product.japanese_option) { %>
+            <p class="jap-note">ⓘ <%= t('detail.japanese_option') %> — <%= product.japanese_option.replace(/[（）]/g,'') %></p>
+          <% } %>
+
+          <div class="pd-actions">
+            <a href="#inquiry" class="btn"><%= t('common.get_quote') %></a>
+            <a href="<%= whatsappLink %>?text=<%= encodeURIComponent('Hello JOEFOX, I am interested in model ' + product.model + ' (' + product.name + '). Please send me your best quotation.') %>" target="_blank" rel="noopener" class="btn btn-wa">
+              WhatsApp: <%= product.model %>
+            </a>
+            <a href="/sample-request?product=<%= product.id %>" class="btn btn-outline"><%= t('common.request_sample') %></a>
+          </div>
+          <p class="pd-customize">✓ <%= t('detail.customization') %></p>
+        </div>
+      </div>
+
+      <div class="pd-lower">
+        <% if (product.features && product.features.length) { %>
+        <div class="pd-block reveal">
+          <h3><%= t('detail.features') %></h3>
+          <ul class="feature-list">
+            <% product.features.forEach(f => { %><li>✓ <%= f %></li><% }) %>
+          </ul>
+        </div>
+        <% } %>
+
+        <div class="pd-block reveal">
+          <h3><%= t('detail.specifications') %></h3>
+          <table class="spec-table">
+            <tr><td>Model No.</td><td><%= product.model %></td></tr>
+            <% if (product.movement) { %><tr><td>Movement</td><td><%= product.movement %></td></tr><% } %>
+            <% if (product.specs && product.specs.case) { %><tr><td>Case</td><td><%= product.specs.case %></td></tr><% } %>
+            <% if (product.specs && product.specs.strap) { %><tr><td>Strap</td><td><%= product.specs.strap %></td></tr><% } %>
+            <% if (product.specs && product.specs.case_diameter) { %><tr><td>Case Diameter</td><td><%= product.specs.case_diameter %></td></tr><% } %>
+            <% if (product.specs && product.specs.case_thickness) { %><tr><td>Case Thickness</td><td><%= product.specs.case_thickness %></td></tr><% } %>
+            <% if (product.specs && product.specs.band_width) { %><tr><td>Band Width</td><td><%= product.specs.band_width %></td></tr><% } %>
+            <% if (product.specs && product.specs.weight) { %><tr><td>Weight</td><td><%= product.specs.weight %></td></tr><% } %>
+            <% if (product.specs && product.specs.crystal) { %><tr><td>Crystal</td><td><%= product.specs.crystal %></td></tr><% } %>
+            <tr><td>MOQ</td><td>Monochrome <%= product.moq_mono || 100 %> pcs<%= product.moq_mixed ? ' · Mixed color ' + product.moq_mixed + ' pcs' : '' %></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="inquiry-section" id="inquiry">
+    <div class="wrap">
+      <div class="inquiry-grid">
+        <div class="inquiry-head reveal">
+          <div class="eyebrow">Get Quotation</div>
+          <h2>Ask for <%= product.model %> quotation</h2>
+          <p>Tell us your target quantity and customization needs. Our sales team replies within 24 hours with tier pricing, sample terms and lead time.</p>
+          <ul class="inq-contact-list">
+            <li><a href="<%= whatsappLink %>" target="_blank" rel="noopener">WhatsApp: <%= settings.whatsapp %></a></li>
+            <li><a href="mailto:<%= settings.email %>?subject=<%= encodeURIComponent('Quotation request - ' + product.model) %>"><%= settings.email %></a></li>
+          </ul>
+        </div>
+        <form class="inquiry-form reveal" method="post" action="/inquiry">
+          <input type="hidden" name="product_id" value="<%= product.id %>">
+          <div class="frow">
+            <label><%= t('form.product_interest') %></label>
+            <input type="text" value="<%= product.model %> — <%= product.name %>" readonly>
+          </div>
+          <div class="frow two">
+            <div><label><%= t('form.name') %> *</label><input name="name" required></div>
+            <div><label><%= t('form.company') %></label><input name="company"></div>
+          </div>
+          <div class="frow two">
+            <div><label><%= t('form.email') %> *</label><input type="email" name="email" required></div>
+            <div><label><%= t('form.phone') %></label><input name="phone"></div>
+          </div>
+          <div class="frow two">
+            <div><label><%= t('form.country') %></label><input name="country"></div>
+            <div><label><%= t('form.quantity') %></label><input name="quantity" placeholder="e.g. 500 pcs"></div>
+          </div>
+          <div class="frow">
+            <label><%= t('form.message') %> *</label>
+            <textarea name="message" rows="4" required placeholder="Target price, OEM/logo needs, packaging, delivery port..."></textarea>
+          </div>
+          <button type="submit" class="btn" style="width:100%;"><%= t('common.send_inquiry') %></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <% if (related && related.length) { %>
+  <section class="related">
+    <div class="wrap">
+      <div class="eyebrow">More Models</div>
+      <h2 class="section-title">Related dual-movement watches</h2>
+      <div class="rel-grid">
+        <% related.forEach(p => { %>
+        <a class="rel-card" href="/product/<%= p.id %>">
+          <img src="<%= p.image %>" alt="<%= p.model %> <%= p.name %>" loading="lazy" onerror="this.src='/assets/placeholders/product.svg'">
+          <div><span class="rel-model"><%= p.model %></span><span class="rel-name"><%= p.name %></span></div>
+        </a>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+  <% } %>
+</main>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "<%= product.model %> <%= product.name %>",
+  "sku": "<%= product.model %>",
+  "brand": { "@type": "Brand", "name": "JOEFOX" },
+  "description": "<%= (product.description||'').replace(/"/g,'') %>",
+  <% if (product.tiers && product.tiers.length) { %>
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "<%= currency === 'CNY' ? 'CNY' : currency %>",
+    "lowPrice": "<%= (product.tiers[product.tiers.length-1].price * (currency==='CNY'?1:(settings.currency_rates[currency]||1))).toFixed(2) %>",
+    "highPrice": "<%= (product.tiers[0].price * (currency==='CNY'?1:(settings.currency_rates[currency]||1))).toFixed(2) %>",
+    "availability": "https://schema.org/InStock"
+  },
+  <% } %>
+  "manufacturer": { "@type": "Organization", "name": "JOEFOX Watch Factory" }
+}
+</script>
+
+<style>
+  .pd-section{padding:120px 0 50px;}
+  .breadcrumb{font-size:.82rem;color:var(--gray-500);margin-bottom:22px;}
+  .breadcrumb a:hover{text-decoration:underline;}
+  .pd-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:start;}
+  .pd-main-img{border:1px solid var(--gray-300);border-radius:var(--radius);overflow:hidden;background:var(--gray-100);}
+  .pd-main-img img{width:100%;object-fit:cover;}
+  .pd-thumbs{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px;}
+  .pd-thumb{border:2px solid var(--gray-300);border-radius:6px;cursor:pointer;transition:.2s;aspect-ratio:.8;object-fit:cover;width:100%;}
+  .pd-thumb.on,.pd-thumb:hover{border-color:var(--ink);}
+  .pd-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500);margin-bottom:10px;}
+  .pd-info h1{font-size:clamp(1.7rem,4vw,2.5rem);font-weight:700;letter-spacing:-.02em;line-height:1.1;}
+  .pd-title{font-size:.95rem;color:var(--gray-500);text-transform:uppercase;letter-spacing:.06em;margin:8px 0 18px;}
+  .tier-table{background:var(--gray-100);border:1px solid var(--gray-300);border-radius:var(--radius);padding:20px 22px;margin-bottom:16px;}
+  .tier-table h3{font-size:.95rem;font-weight:700;margin-bottom:10px;}
+  .tier-table table{width:100%;border-collapse:collapse;}
+  .tier-table th{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gray-500);text-align:left;padding:6px 0;border-bottom:1px solid var(--gray-300);}
+  .tier-table td{padding:9px 0;border-bottom:1px solid var(--gray-300);font-size:.95rem;}
+  .tier-table tr:last-child td{border-bottom:none;}
+  .tier-table .price{font-weight:700;font-size:1.05rem;}
+  .tier-note{font-size:.75rem;color:var(--gray-500);margin-top:10px;}
+  .jap-note{font-size:.85rem;color:var(--gray-700);background:#fff8e6;border:1px solid #f0dfb2;border-radius:var(--radius);padding:10px 14px;margin-bottom:16px;}
+  .pd-actions{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0 14px;}
+  .pd-customize{font-size:.85rem;color:#157a41;font-weight:600;}
+  .pd-lower{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:44px;}
+  .pd-block{background:#fff;border:1px solid var(--gray-300);border-radius:var(--radius);padding:26px 28px;}
+  .pd-block h3{font-size:1.1rem;font-weight:700;margin-bottom:14px;}
+  .feature-list li{padding:7px 0;font-size:.95rem;border-bottom:1px dashed var(--gray-300);}
+  .feature-list li:last-child{border-bottom:none;}
+  .spec-table{width:100%;border-collapse:collapse;}
+  .spec-table td{padding:8px 0;font-size:.92rem;border-bottom:1px solid var(--gray-300);}
+  .spec-table td:first-child{color:var(--gray-500);width:42%;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;}
+
+  .inquiry-section{background:var(--gray-100);padding:70px 0;}
+  .inquiry-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:start;}
+  .inquiry-head h2{font-size:clamp(1.4rem,3vw,2rem);font-weight:700;margin-bottom:12px;}
+  .inquiry-head p{color:var(--gray-700);margin-bottom:18px;}
+  .inq-contact-list li{padding:8px 0;font-weight:600;}
+  .inq-contact-list a:hover{text-decoration:underline;}
+  .inquiry-form{background:#fff;border:1px solid var(--gray-300);border-radius:var(--radius);padding:30px;}
+  .frow{margin-bottom:16px;}
+  .frow.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .frow label{display:block;font-size:.8rem;font-weight:600;color:var(--gray-700);margin-bottom:6px;}
+  .frow input,.frow textarea{width:100%;border:1px solid var(--gray-300);border-radius:var(--radius);padding:11px 14px;font-size:.92rem;font-family:inherit;background:var(--gray-100);transition:.2s;}
+  .frow input:focus,.frow textarea:focus{outline:none;border-color:var(--ink);background:#fff;}
+  .frow input[readonly]{color:var(--gray-900);font-weight:600;}
+
+  .related{padding:64px 0 80px;}
+  .rel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px;}
+  .rel-card{border:1px solid var(--gray-300);border-radius:var(--radius);overflow:hidden;transition:.25s var(--ease);background:#fff;}
+  .rel-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.1);}
+  .rel-card img{aspect-ratio:1.1;object-fit:cover;width:100%;}
+  .rel-card > div{padding:12px 14px;display:flex;flex-direction:column;gap:2px;}
+  .rel-model{font-size:.72rem;font-weight:700;letter-spacing:.12em;color:var(--gray-500);text-transform:uppercase;}
+  .rel-name{font-size:.95rem;font-weight:600;}
+
+  @media(max-width:900px){
+    .pd-section{padding:104px 0 40px;}
+    .pd-grid,.pd-lower,.inquiry-grid{grid-template-columns:1fr;gap:26px;}
+    .rel-grid{grid-template-columns:repeat(2,1fr);}
+    .frow.two{grid-template-columns:1fr;}
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.pd-thumb').forEach(th => {
+    th.addEventListener('click', () => {
+      document.querySelectorAll('.pd-thumb').forEach(x => x.classList.remove('on'));
+      th.classList.add('on');
+      document.getElementById('pdMain').src = th.dataset.src;
+      document.getElementById('pdMain').style.opacity = 0;
+      setTimeout(()=>{ document.getElementById('pdMain').style.transition='opacity .3s'; document.getElementById('pdMain').style.opacity=1; }, 30);
+    });
+  });
+</script>
