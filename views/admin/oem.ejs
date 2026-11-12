@@ -45,6 +45,16 @@
         <label>Card Description</label>
         <textarea name="service_desc_<%= idx %>" rows="3" required><%= svc.desc %></textarea>
       </div>
+      <div class="form-group">
+        <label>Card Image (hover shows color)</label>
+        <input type="file" name="service_image_<%= idx %>" accept="image/*">
+        <% if (svc.image) { %>
+          <div style="margin-top:8px;">
+            <img src="<%= svc.image %>" class="preview" alt="<%= svc.title %>">
+            <p class="hint"><%= svc.image %></p>
+          </div>
+        <% } %>
+      </div>
     </div>
     <% }) %>
   </div>

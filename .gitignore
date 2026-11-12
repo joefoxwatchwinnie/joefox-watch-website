@@ -14,3 +14,5 @@ public/uploads/*
 !public/uploads/quartz/
 !public/uploads/factory/
 !public/uploads/catalog/
+!public/uploads/dubai/
+!public/uploads/oem/

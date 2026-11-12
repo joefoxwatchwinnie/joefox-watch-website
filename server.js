@@ -383,8 +383,14 @@ app.get('/admin/oem', requireAuth, (req, res) => {
   res.render('admin/oem', { page: 'oem', title: 'OEM & ODM Service', oem: db.getOEM() });
 });
 
-app.post('/admin/oem', requireAuth, upload.single('image'), (req, res) => {
+app.post('/admin/oem', requireAuth, upload.any(), (req, res) => {
   const oem = db.getOEM();
+  const svcImg = (i) => {
+    const f = (req.files || []).find(x => x.fieldname === 'service_image_' + i);
+    if (!f) return oem.services[i].image;
+    if (oem.services[i].image) deleteUpload(oem.services[i].image);
+    return '/uploads/' + f.filename;
+  };
   const updates = {
     title: req.body.title || oem.title,
     subtitle: req.body.subtitle || oem.subtitle,
@@ -393,13 +399,14 @@ app.post('/admin/oem', requireAuth, upload.single('image'), (req, res) => {
     sample_lead: req.body.sample_lead || oem.sample_lead,
     mass_lead: req.body.mass_lead || oem.mass_lead,
     services: [
-      { title: req.body.service_title_0 || oem.services[0].title, desc: req.body.service_desc_0 || oem.services[0].desc },
-      { title: req.body.service_title_1 || oem.services[1].title, desc: req.body.service_desc_1 || oem.services[1].desc },
-      { title: req.body.service_title_2 || oem.services[2].title, desc: req.body.service_desc_2 || oem.services[2].desc },
-      { title: req.body.service_title_3 || oem.services[3].title, desc: req.body.service_desc_3 || oem.services[3].desc }
+      { title: req.body.service_title_0 || oem.services[0].title, desc: req.body.service_desc_0 || oem.services[0].desc, image: svcImg(0) },
+      { title: req.body.service_title_1 || oem.services[1].title, desc: req.body.service_desc_1 || oem.services[1].desc, image: svcImg(1) },
+      { title: req.body.service_title_2 || oem.services[2].title, desc: req.body.service_desc_2 || oem.services[2].desc, image: svcImg(2) },
+      { title: req.body.service_title_3 || oem.services[3].title, desc: req.body.service_desc_3 || oem.services[3].desc, image: svcImg(3) }
     ]
   };
-  if (req.file) { deleteUpload(oem.image); updates.image = '/uploads/' + req.file.filename; }
+  const mainImg = (req.files || []).find(x => x.fieldname === 'image');
+  if (mainImg) { deleteUpload(oem.image); updates.image = '/uploads/' + mainImg.filename; }
   db.updateOEM(updates);
   flash(req, 'success', 'OEM section updated');
   res.redirect('/admin/oem');
@@ -427,6 +434,10 @@ function parseProductBody(body, existing) {
     case: body.spec_case || '',
     strap: body.spec_strap || ''
   };
+  let colorOptions;
+  if (body.color_options !== undefined) {
+    try { colorOptions = JSON.parse(body.color_options); } catch (e) { colorOptions = null; }
+  }
   return {
     title: body.title ?? (existing ? existing.title : ''),
     name: body.name ?? (existing ? existing.name : ''),
@@ -440,7 +451,8 @@ function parseProductBody(body, existing) {
     description: body.description ?? '',
     features: (body.features || '').split('\n').map(s => s.trim()).filter(Boolean),
     tiers, specs,
-    gallery: (body.gallery || '').split('\n').map(s => s.trim()).filter(Boolean)
+    gallery: (body.gallery || '').split('\n').map(s => s.trim()).filter(Boolean),
+    ...(colorOptions ? { color_options: colorOptions } : {})
   };
 }
 

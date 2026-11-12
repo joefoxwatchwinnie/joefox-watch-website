@@ -172,7 +172,31 @@
   </fieldset>
 
   <fieldset>
-    <legend>⑩ 底部 CTA</legend>
+    <legend>⑩ 迪拜档口（Dubai Showroom）</legend>
+    <div class="two-col">
+      <div class="form-group"><label>小标签</label><input type="text" name="f_dubai.eyebrow" value="<%= v('dubai.eyebrow') %>"></div>
+      <div class="form-group"><label>标题</label><input type="text" name="f_dubai.heading" value="<%= v('dubai.heading') %>"></div>
+    </div>
+    <div class="form-group"><label>说明文字</label><textarea name="f_dubai.text" rows="3"><%= v('dubai.text') %></textarea></div>
+    <div class="four-col">
+      <% ['门店门头（竖图 featured）','店内图 1','店内图 2','店内图 3（横图）'].forEach((lbl, i) => { %>
+      <div class="form-group"><label>图 <%= i+1 %> 路径（<%= lbl %>）</label><input type="text" name="f_dubai.images.<%= i %>" value="<%= v('dubai.images.' + i) %>"></div>
+      <% }) %>
+    </div>
+    <div class="four-col">
+      <% ['门店门头','店内图 1','店内图 2','店内图 3'].forEach((lbl, i) => { %>
+      <div class="form-group"><label>上传图 <%= i+1 %>（可选）</label><input type="file" name="img_dubai.images.<%= i %>" accept="image/*"></div>
+      <% }) %>
+    </div>
+    <div class="four-col">
+      <% ['门店门头','店内图 1','店内图 2','店内图 3'].forEach((lbl, i) => { %>
+      <div class="form-group"><label>图 <%= i+1 %> 角标文字</label><input type="text" name="f_dubai.captions.<%= i %>" value="<%= v('dubai.captions.' + i) %>"></div>
+      <% }) %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>⑪ 底部 CTA</legend>
     <div class="two-col">
       <div class="form-group"><label>标题</label><input type="text" name="f_cta.title" value="<%= v('cta.title') %>"></div>
       <div class="form-group"><label>说明文字</label><input type="text" name="f_cta.text" value="<%= v('cta.text') %>"></div>

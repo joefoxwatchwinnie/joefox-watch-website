@@ -1,3 +1,7 @@
+<%
+  const SUR_COLORS = ['Gold', 'Black', 'Rose Gold', 'Two-Tone Gold', 'Two-Tone Rose Gold', 'Blue'];
+  const surFor = (name) => SUR_COLORS.includes(name) ? (product.series === 'quartz' ? 8 : 10) : 0;
+%>
 <main>
   <section class="pd-section">
     <div class="wrap">
@@ -28,11 +32,27 @@
               <thead><tr><th><%= t('detail.qty') %></th><th><%= t('detail.price') %></th></tr></thead>
               <tbody>
                 <% product.tiers.forEach(tr => { %>
-                <tr><td><%= tr.qty %> pcs</td><td class="price"><%= fmtPrice(tr.price) %></td></tr>
+                <tr><td><%= tr.qty %> pcs</td><td class="price" data-base="<%= tr.price %>"><%= fmtPrice(tr.price) %></td></tr>
                 <% }) %>
               </tbody>
             </table>
             <p class="tier-note">FOB Guangzhou/Shenzhen · shipping &amp; duties not included · CNY reference available via currency switcher</p>
+          </div>
+          <% } %>
+
+          <% if (product.color_options && product.color_options.length) { %>
+          <div class="color-picker">
+            <h3>Color Options <span class="cp-count"><%= product.color_options.length %> colors available</span></h3>
+            <div class="cp-swatches">
+              <% product.color_options.forEach(c => { const sur = surFor(c.name); %>
+              <button type="button" class="cp-swatch" data-img="<%= c.image %>" data-name="<%= c.name %>" data-sur="<%= sur %>">
+                <img src="<%= c.image %>" alt="<%= product.model %> <%= c.name %>" loading="lazy">
+                <span class="cp-name"><%= c.name %></span>
+                <% if (sur) { %><span class="cp-badge">+¥<%= sur %>/pc</span><% } %>
+              </button>
+              <% }) %>
+            </div>
+            <p class="cp-selected" id="cpSelected">Tap a color to switch photo &amp; update prices — Gold / Black / Rose Gold / Two-Tone / Blue colors carry a small surcharge.</p>
           </div>
           <% } %>
 
@@ -187,6 +207,17 @@
   .tier-table .price{font-weight:700;font-size:1.05rem;}
   .tier-note{font-size:.75rem;color:var(--gray-500);margin-top:10px;}
   .jap-note{font-size:.85rem;color:var(--gray-700);background:#fff8e6;border:1px solid #f0dfb2;border-radius:var(--radius);padding:10px 14px;margin-bottom:16px;}
+  .color-picker{background:var(--gray-100);border:1px solid var(--gray-300);border-radius:var(--radius);padding:20px 22px;margin-bottom:16px;}
+  .color-picker h3{font-size:.95rem;font-weight:700;display:flex;align-items:baseline;gap:10px;margin-bottom:14px;}
+  .cp-count{font-size:.72rem;font-weight:600;color:var(--gray-500);letter-spacing:.06em;text-transform:uppercase;}
+  .cp-swatches{display:flex;flex-wrap:wrap;gap:10px;}
+  .cp-swatch{background:#fff;border:2px solid var(--gray-300);border-radius:10px;padding:6px 8px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:66px;transition:.2s var(--ease);font-family:inherit;}
+  .cp-swatch img{width:46px;height:58px;object-fit:cover;border-radius:6px;background:#fff;}
+  .cp-swatch:hover{border-color:var(--gray-500);transform:translateY(-2px);box-shadow:0 10px 20px -12px rgba(0,0,0,.25);}
+  .cp-swatch.on{border-color:var(--ink);box-shadow:0 8px 18px -10px rgba(0,0,0,.35);}
+  .cp-name{font-size:.62rem;font-weight:600;color:var(--gray-700);white-space:nowrap;max-width:70px;overflow:hidden;text-overflow:ellipsis;}
+  .cp-badge{font-size:.6rem;font-weight:700;color:#8a5a00;background:#ffe9c2;padding:1px 7px;border-radius:8px;white-space:nowrap;}
+  .cp-selected{font-size:.82rem;color:var(--gray-700);margin-top:12px;font-weight:600;}
   .pd-actions{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0 14px;}
   .pd-customize{font-size:.85rem;color:#157a41;font-weight:600;}
   .pd-lower{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:44px;}
@@ -239,4 +270,55 @@
       setTimeout(()=>{ document.getElementById('pdMain').style.transition='opacity .3s'; document.getElementById('pdMain').style.opacity=1; }, 30);
     });
   });
+
+  // ---- Color options: photo switch + live surcharge pricing ----
+  (function () {
+    const swatches = document.querySelectorAll('.cp-swatch');
+    if (!swatches.length) return;
+    const RATE = <%= (settings.currency_rates && settings.currency_rates[currency]) || 1 %>;
+    const SYM = <%- JSON.stringify(currencySymbol) %>;
+    const mainImg = document.getElementById('pdMain');
+    const selNote = document.getElementById('cpSelected');
+    const inquiryInput = document.querySelector('.inquiry-form input[readonly]');
+    const baseInterest = inquiryInput ? inquiryInput.value : '';
+    const waBtn = document.querySelector('.btn-wa');
+    const baseWa = waBtn ? waBtn.href : '';
+
+    function fadeMain(src) {
+      mainImg.style.opacity = 0;
+      setTimeout(() => { mainImg.style.transition = 'opacity .3s'; mainImg.src = src; mainImg.style.opacity = 1; }, 30);
+    }
+    function refreshPrices(sur) {
+      document.querySelectorAll('.tier-table td.price').forEach(td => {
+        const base = parseFloat(td.dataset.base || '0');
+        td.textContent = SYM + ((base + sur) * RATE).toFixed(2);
+      });
+    }
+    swatches.forEach(sw => {
+      sw.addEventListener('click', () => {
+        const already = sw.classList.contains('on');
+        swatches.forEach(x => x.classList.remove('on'));
+        if (already) { // 再点一次取消，恢复基础价
+          refreshPrices(0);
+          selNote.textContent = 'Tap a color to switch photo & update prices — Gold / Black / Rose Gold / Two-Tone / Blue colors carry a small surcharge.';
+          if (inquiryInput) inquiryInput.value = baseInterest;
+          if (waBtn) waBtn.href = baseWa;
+          return;
+        }
+        sw.classList.add('on');
+        const name = sw.dataset.name;
+        const sur = parseFloat(sw.dataset.sur || '0');
+        fadeMain(sw.dataset.img);
+        refreshPrices(sur);
+        selNote.innerHTML = sur > 0
+          ? 'Selected: <strong>' + name + '</strong> — extra ¥' + sur + '/pc (' + SYM + (sur * RATE).toFixed(2) + ') already added to every tier price above.'
+          : 'Selected: <strong>' + name + '</strong> — no surcharge, prices unchanged.';
+        if (inquiryInput) inquiryInput.value = baseInterest + ' — Color: ' + name;
+        if (waBtn) {
+          const msg = 'Hello JOEFOX, I am interested in model <%= product.model %> (<%= product.name %>)' + (name ? ' in color ' + name : '') + '. Please send me your best quotation.';
+          waBtn.href = baseWa.split('?')[0] + '?text=' + encodeURIComponent(msg);
+        }
+      });
+    });
+  })();
 </script>

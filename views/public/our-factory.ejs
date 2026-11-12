@@ -158,6 +158,46 @@
     </div>
   </section>
 
+  <!-- DUBAI SHOWROOM -->
+  <section class="fz-dubai">
+    <div class="wrap">
+      <div class="fz-dubai-head reveal">
+        <div>
+          <div class="fz-eyebrow dark"><%= gv('dubai.eyebrow', 'Global Retail Presence') %></div>
+          <h2 class="fz-h2" style="margin-bottom:0;"><%= gv('dubai.heading', 'Our Dubai Showroom') %></h2>
+        </div>
+        <p class="fz-dubai-sub"><%= gv('dubai.text', '') %></p>
+      </div>
+      <div class="fz-dubai-grid">
+        <% const dubaiImgs = gv('dubai.images', []) || []; const dubaiCaps = gv('dubai.captions', []) || []; %>
+        <% if (dubaiImgs[0]) { %>
+        <figure class="fz-dubai-photo featured reveal">
+          <img src="<%= dubaiImgs[0] %>" alt="JOEFOX Dubai showroom storefront, Deira">
+          <figcaption><span><%= dubaiCaps[0] || 'Storefront' %></span>Deira, Dubai · U.A.E</figcaption>
+        </figure>
+        <% } %>
+        <% if (dubaiImgs[1]) { %>
+        <figure class="fz-dubai-photo reveal">
+          <img src="<%= dubaiImgs[1] %>" alt="Dubai showroom retail shelves">
+          <figcaption><span><%= dubaiCaps[1] || 'Retail Shelves' %></span>Full JOEFOX range in stock</figcaption>
+        </figure>
+        <% } %>
+        <% if (dubaiImgs[2]) { %>
+        <figure class="fz-dubai-photo reveal">
+          <img src="<%= dubaiImgs[2] %>" alt="Dubai showroom aisle">
+          <figcaption><span><%= dubaiCaps[2] || 'Showroom Aisle' %></span>Thousands of models on display</figcaption>
+        </figure>
+        <% } %>
+        <% if (dubaiImgs[3]) { %>
+        <figure class="fz-dubai-photo wide reveal">
+          <img src="<%= dubaiImgs[3] %>" alt="Dubai showroom display wall">
+          <figcaption><span><%= dubaiCaps[3] || 'Display Wall' %></span>Quartz & dual-movement collections</figcaption>
+        </figure>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="cta-band">
     <div class="wrap reveal">
@@ -249,6 +289,21 @@
   .fz-client p{font-size:.92rem;color:var(--gray-700);line-height:1.6;}
   .fz-trust-note{margin-top:22px;font-size:.9rem;color:var(--gray-500);font-style:italic;}
 
+  /* DUBAI SHOWROOM */
+  .fz-dubai{padding:100px 0 !important;background:var(--gray-100);}
+  .fz-dubai-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:44px;flex-wrap:wrap;}
+  .fz-dubai-sub{max-width:460px;font-size:.98rem;line-height:1.7;color:var(--gray-700);}
+  .fz-dubai-grid{display:grid;grid-template-columns:1.05fr 1fr 1fr;grid-auto-rows:250px;gap:16px;}
+  .fz-dubai-photo{margin:0;position:relative;overflow:hidden;border-radius:var(--radius);background:var(--ink);}
+  .fz-dubai-photo.featured{grid-row:1/3;}
+  .fz-dubai-photo.wide{grid-column:2/4;}
+  .fz-dubai-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(100%);transition:filter .55s ease,transform .55s ease;}
+  .fz-dubai-photo:hover img{filter:grayscale(0%);transform:scale(1.035);}
+  .fz-dubai-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 18px 14px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;font-size:.85rem;font-weight:600;display:flex;flex-direction:column;gap:2px;}
+  .fz-dubai-photo figcaption span{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.75);font-weight:700;}
+  .fz-dubai-photo::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);pointer-events:none;transition:.4s;}
+  .fz-dubai-photo:hover::after{border-color:rgba(255,255,255,.4);}
+
   .cta-band{padding:90px 0 !important;}
 
   @media(max-width:960px){
@@ -259,6 +314,9 @@
     .fz-qc-grid{grid-template-columns:1fr;}
     .fz-about-grid,.fz-trust-grid{grid-template-columns:1fr;gap:36px;}
     .fz-stats{grid-template-columns:1fr 1fr;}
+    .fz-dubai-grid{grid-template-columns:1fr 1fr;grid-auto-rows:220px;}
+    .fz-dubai-photo.featured{grid-row:auto;}
+    .fz-dubai-photo.wide{grid-column:1/3;}
   }
   @media(max-width:560px){
     .fz-timeline{grid-template-columns:1fr;}
@@ -268,5 +326,7 @@
     .fz-hero-img img{height:280px;}
     .fz-about-media img{height:280px;}
     .fz-trust-media img{height:260px;}
+    .fz-dubai-grid{grid-template-columns:1fr;grid-auto-rows:230px;}
+    .fz-dubai-photo.wide{grid-column:auto;}
   }
 </style>
