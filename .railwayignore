@@ -1,7 +1,8 @@
-# 生产持久卷上已有这些图片（通过 admin API 上传），无需随代码部署
 public/uploads/quartz/
 public/uploads/dubai/
 public/uploads/oem/
+public/uploads/products/
+public/uploads/factory/
 data/
 node_modules/
 .git/

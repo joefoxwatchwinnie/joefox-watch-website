@@ -88,6 +88,9 @@
     .switcher{display:flex;align-items:center;gap:4px;border:1px solid var(--gray-300);border-radius:999px;padding:3px;}
     .switcher a{font-size:.74rem;font-weight:600;padding:3px 8px;border-radius:999px;color:var(--gray-500);text-transform:uppercase;}
     .switcher a.on{background:var(--ink);color:#fff;}
+    .switcher a.cur-flag{display:flex;align-items:center;padding:2px 4px;}
+    .switcher a.cur-flag img{width:24px;height:16px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.15);}
+    .switcher a.cur-flag.on{background:transparent;outline:2px solid var(--ink);outline-offset:1px;}
 
     /* WhatsApp float */
     .wa-float{position:fixed;bottom:26px;right:26px;z-index:120;width:58px;height:58px;border-radius:50%;background:var(--wa);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(37,211,102,.45);transition:.25s var(--ease);}
@@ -161,6 +164,11 @@
             <a href="/products"><%= t('catalog.all_series') %></a>
             <a href="/products?series=dual-movement"><%= t('nav.dual') %></a>
             <a href="/products?series=quartz"><%= t('nav.quartz') %></a>
+            <div style="border-top:1px solid var(--gray-100);margin:6px 0;"></div>
+            <a href="/products?category=student">Student Watches (学生表)</a>
+            <a href="/products?category=steel-business">Steel Band · Business (钢带·商务)</a>
+            <a href="/products?category=steel-casual">Steel Band · Casual (钢带·休闲)</a>
+            <a href="/products?category=sport">Sport Watches (运动表)</a>
             <a href="/download-catalog">Download Catalog (PDF)</a>
           </div>
         </div>
@@ -171,8 +179,11 @@
       </nav>
       <div class="nav-cta">
         <div class="switcher" title="Currency">
-          <% ['CNY','USD','EUR'].forEach(c => { %>
-            <a href="?cur=<%= c %>" class="<%= currency===c?'on':'' %>"><%= c %></a>
+          <% const curFlags = { CNY: 'cn', USD: 'us', EUR: 'eu' }; %>
+          <% Object.keys(curFlags).forEach(c => { %>
+            <a href="?cur=<%= c %>" class="cur-flag <%= currency===c?'on':'' %>" title="<%= c %>" aria-label="<%= c %>">
+              <img src="https://flagcdn.com/w40/<%= curFlags[c] %>.png" srcset="https://flagcdn.com/w80/<%= curFlags[c] %>.png 2x" width="24" height="16" alt="<%= c %>">
+            </a>
           <% }) %>
         </div>
         <div class="switcher" title="Language">
@@ -221,6 +232,10 @@
           <a href="mailto:<%= settings.email %>">
             <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></span>
             <%= settings.email %>
+          </a>
+          <a href="https://maps.google.com/?q=NANO+WATCHES+TRAINING+L.L.C+Al+Buteen+Deira+Dubai" target="_blank" rel="noopener">
+            <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span>
+            Dubai Showroom: NANO WATCHES TRAINING L.L.C, Al Buteen – Deira, Dubai, UAE · +971 55 298 8532
           </a>
         </div>
         <div class="foot-col">

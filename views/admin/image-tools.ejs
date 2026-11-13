@@ -1,0 +1,59 @@
+<h1>Image Tools — 图片横竖调整</h1>
+<p class="hint">选择目录，然后对任意图片执行 <b>旋转（横竖互换）</b> 或 <b>裁剪比例（3:4 竖版 / 4:3 横版 / 1:1 / 16:10）</b>，保存后立即生效（直接覆盖原图）。</p>
+
+<div class="card" style="margin-bottom:18px;">
+  <form method="GET" action="/admin/image-tools" style="display:flex;gap:12px;align-items:end;flex-wrap:wrap;">
+    <div class="form-group" style="margin:0;">
+      <label>Directory 目录</label>
+      <select name="dir" onchange="this.form.submit()">
+        <option value="">(root 根目录)</option>
+        <% dirs.forEach(d => { %>
+          <option value="<%= d %>" <%= currentDir === d ? 'selected' : '' %>><%= d || '(root)' %></option>
+        <% }) %>
+      </select>
+    </div>
+    <span class="hint"><%= images.length %> images in this folder</span>
+  </form>
+</div>
+
+<div class="img-grid">
+  <% images.forEach(im => { %>
+  <div class="img-card">
+    <a href="<%= im.url %>" target="_blank"><img src="<%= im.url %>" loading="lazy" alt="<%= im.rel %>"></a>
+    <p class="hint path" title="<%= im.rel %>"><%= im.rel %></p>
+    <form method="POST" action="/admin/image-tools">
+      <input type="hidden" name="img" value="<%= im.rel %>">
+      <input type="hidden" name="dir" value="<%= currentDir %>">
+      <div style="display:flex;gap:6px;">
+        <select name="rotate">
+          <option value="0">不旋转</option>
+          <option value="90">右转 90°（横→竖）</option>
+          <option value="180">旋转 180°</option>
+          <option value="270">左转 90°（横→竖）</option>
+        </select>
+        <select name="crop">
+          <option value="">不裁剪</option>
+          <option value="portrait">竖版 3:4</option>
+          <option value="landscape">横版 4:3</option>
+          <option value="square">方形 1:1</option>
+          <option value="wide">宽幅 16:10</option>
+        </select>
+        <button type="submit" class="btn-apply">应用</button>
+      </div>
+    </form>
+  </div>
+  <% }) %>
+  <% if (!images.length) { %>
+    <p class="hint">This folder has no images. / 此目录没有图片</p>
+  <% } %>
+</div>
+
+<style>
+  .img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+  .img-card{background:#fff;border:1px solid #e2e2e2;border-radius:8px;padding:10px;}
+  .img-card img{width:100%;height:180px;object-fit:contain;background:#fafafa;border-radius:4px;}
+  .img-card .path{font-size:.7rem;color:#888;margin:6px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .img-card select{font-size:.75rem;padding:4px;max-width:110px;}
+  .btn-apply{background:#111;color:#fff;border:none;border-radius:4px;padding:5px 10px;font-size:.75rem;cursor:pointer;}
+  .btn-apply:hover{background:#333;}
+</style>

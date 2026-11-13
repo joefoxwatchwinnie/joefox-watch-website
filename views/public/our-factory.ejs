@@ -109,7 +109,27 @@
           <% }) %>
         </div>
         <div class="fz-qc-media reveal">
-          <% qcImages.forEach(img => { %><img src="<%= img %>" alt="Quality inspection"><% }) %>
+          <div class="qc-panel">
+            <p class="qc-panel-title">Every watch passes all 5 stages</p>
+            <div class="qc-icons">
+              <div class="qc-icon-item">
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 42 13v11c0 10.5-7.6 16.9-18 20C13.6 40.9 6 34.5 6 24V13z"/><path d="M16 24l6 6 11-12"/></svg>
+                <span>Strength Test</span>
+              </div>
+              <div class="qc-icon-item">
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6c7 9 12 15.2 12 21a12 12 0 1 1-24 0c0-5.8 5-12 12-21z"/><path d="M18 28a6.5 6.5 0 0 0 6.5 6.5"/></svg>
+                <span>Water Resistance</span>
+              </div>
+              <div class="qc-icon-item">
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M24 13v11l8 5"/><path d="M24 3v4M45 24h-4M24 45v-4M3 24h4" stroke-width="2"/></svg>
+                <span>Timing Accuracy</span>
+              </div>
+              <div class="qc-icon-item">
+                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="8" width="28" height="34" rx="3"/><path d="M18 17h12M18 24h12M18 31h7"/><path d="M40 30l4 4-7 8" stroke-width="2.2"/></svg>
+                <span>Final Sampling</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -218,8 +238,8 @@
   .fz-eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:20px;}
   .fz-eyebrow.dark{color:var(--gray-500);}
   .fz-h2{font-size:clamp(1.7rem,3.6vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.18;margin-bottom:44px;}
-  .fz-photo img,.fz-about-media img,.fz-hero-img img,.fz-qc-media img,.fz-trust-media img{filter:grayscale(100%);transition:filter .6s ease;}
-  .fz-photo:hover img,.fz-about-media:hover img,.fz-qc-media:hover img,.fz-trust-media:hover img{filter:grayscale(0%);}
+  .fz-photo img,.fz-about-media img,.fz-hero-img img,.fz-qc-media img,.fz-trust-media img{transition:transform .6s var(--ease),box-shadow .6s var(--ease);}
+  .fz-photo:hover img,.fz-about-media:hover img,.fz-qc-media:hover img,.fz-trust-media:hover img{transform:scale(1.03);}
 
   /* HERO */
   .fz-hero{background:var(--ink);color:#fff;padding:130px 0 0 !important;}
@@ -237,7 +257,7 @@
   .fz-about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
   .fz-about-text h2{font-size:clamp(1.6rem,3.2vw,2.3rem);font-weight:700;letter-spacing:-.02em;margin-bottom:18px;}
   .fz-about-text p{color:var(--gray-700);font-size:1.05rem;line-height:1.75;}
-  .fz-about-media img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
+  .fz-about-media img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
   .fz-pills{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-top:24px;padding:0;}
   .fz-pills li{font-size:.8rem;font-weight:600;letter-spacing:.04em;border:1px solid var(--gray-300);padding:8px 16px;color:var(--ink);}
 
@@ -261,7 +281,7 @@
   /* CAPABILITIES */
   .fz-cap{padding:100px 0 !important;background:var(--gray-100);}
   .fz-cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gray-300);border:1px solid var(--gray-300);}
-  .fz-photo{margin:0;background:#fff;position:relative;}
+  .fz-photo{margin:0;background:#fff;position:relative;overflow:hidden;}
   .fz-photo img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
   .fz-photo figcaption{padding:16px 18px;font-size:.85rem;font-weight:600;color:var(--ink);}
   .fz-photo figcaption span{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-500);margin-bottom:4px;font-weight:600;}
@@ -273,8 +293,13 @@
   .qc-no{font-size:1.1rem;font-weight:300;color:rgba(255,255,255,.4);flex:0 0 36px;font-variant-numeric:tabular-nums;}
   .fz-qc-step h4{font-size:1rem;font-weight:600;color:#fff;margin-bottom:5px;}
   .fz-qc-step p{font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.6);}
-  .fz-qc-media{display:grid;gap:16px;}
-  .fz-qc-media img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;}
+  .fz-qc-media{display:block;}
+  .qc-panel{border:1px solid rgba(255,255,255,.16);padding:36px 32px;}
+  .qc-panel-title{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:28px;font-weight:600;}
+  .qc-icons{display:grid;grid-template-columns:1fr 1fr;gap:30px 24px;}
+  .qc-icon-item{display:flex;flex-direction:column;align-items:flex-start;gap:12px;color:rgba(255,255,255,.85);}
+  .qc-icon-item svg{width:38px;height:38px;color:#e8c87a;}
+  .qc-icon-item span{font-size:.82rem;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.8);}
 
   /* PROCESS */
   .fz-proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;border-top:1px solid var(--gray-300);padding-top:40px;}

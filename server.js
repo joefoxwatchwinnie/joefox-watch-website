@@ -98,14 +98,16 @@ app.get('/products', (req, res) => {
   const settings = db.getSettings();
   const series = req.query.series || '';
   const movement = req.query.movement || '';
+  const category = req.query.category || '';
   const q = (req.query.q || '').trim();
   let products = db.getProducts();
   if (series) products = products.filter(p => p.series === series);
+  if (category) products = products.filter(p => (p.category || '') === category);
   if (movement) products = products.filter(p => (p.movement || '').toLowerCase().includes(movement.toLowerCase()));
   if (q) products = products.filter(p =>
     [p.model, p.name, p.title, p.description].join(' ').toLowerCase().includes(q.toLowerCase()));
   const data = {
-    settings, products, filters: { series, movement, q },
+    settings, products, filters: { series, movement, category, q },
     footer: db.getFooter()
   };
   const meta = db.getPage('products');
@@ -306,9 +308,9 @@ app.post('/admin/settings', requireAuth, uploadMixed.fields([
     smtp_from: req.body.smtp_from ?? settings.smtp_from,
     smtp_secure: req.body.smtp_secure === '1' ? '1' : '0'
   };
-  if (req.files.logo_dark) { deleteUpload(settings.logo_dark); updates.logo_dark = '/uploads/' + req.files.logo_dark[0].filename; }
-  if (req.files.logo_light) { deleteUpload(settings.logo_light); updates.logo_light = '/uploads/' + req.files.logo_light[0].filename; }
-  if (req.files.catalog_pdf) { deleteUpload(settings.catalog_pdf); updates.catalog_pdf = '/uploads/' + req.files.catalog_pdf[0].filename; }
+  if (req.files?.logo_dark) { deleteUpload(settings.logo_dark); updates.logo_dark = '/uploads/' + req.files.logo_dark[0].filename; }
+  if (req.files?.logo_light) { deleteUpload(settings.logo_light); updates.logo_light = '/uploads/' + req.files.logo_light[0].filename; }
+  if (req.files?.catalog_pdf) { deleteUpload(settings.catalog_pdf); updates.catalog_pdf = '/uploads/' + req.files.catalog_pdf[0].filename; }
   if (req.body.remove_catalog === '1') { deleteUpload(settings.catalog_pdf); updates.catalog_pdf = null; }
   // currency rates & symbols (CNY is the base)
   try {
@@ -334,8 +336,8 @@ app.post('/admin/banners', requireAuth, upload.fields([
 ]), (req, res) => {
   const banners = db.getBanners().map((b, idx) => {
     const key = `image_${idx}`;
-    const image = req.files[key] ? '/uploads/' + req.files[key][0].filename : b.image;
-    if (req.files[key]) deleteUpload(b.image);
+    const image = req.files?.[key] ? '/uploads/' + req.files[key][0].filename : b.image;
+    if (req.files?.[key]) deleteUpload(b.image);
     return {
       ...b,
       title: req.body[`title_${idx}`] || b.title,
@@ -398,12 +400,11 @@ app.post('/admin/oem', requireAuth, upload.any(), (req, res) => {
     moq: req.body.moq || oem.moq,
     sample_lead: req.body.sample_lead || oem.sample_lead,
     mass_lead: req.body.mass_lead || oem.mass_lead,
-    services: [
-      { title: req.body.service_title_0 || oem.services[0].title, desc: req.body.service_desc_0 || oem.services[0].desc, image: svcImg(0) },
-      { title: req.body.service_title_1 || oem.services[1].title, desc: req.body.service_desc_1 || oem.services[1].desc, image: svcImg(1) },
-      { title: req.body.service_title_2 || oem.services[2].title, desc: req.body.service_desc_2 || oem.services[2].desc, image: svcImg(2) },
-      { title: req.body.service_title_3 || oem.services[3].title, desc: req.body.service_desc_3 || oem.services[3].desc, image: svcImg(3) }
-    ]
+    services: oem.services.map((s, i) => ({
+      title: req.body['service_title_' + i] || s.title,
+      desc: req.body['service_desc_' + i] || s.desc,
+      image: svcImg(i)
+    }))
   };
   const mainImg = (req.files || []).find(x => x.fieldname === 'image');
   if (mainImg) { deleteUpload(oem.image); updates.image = '/uploads/' + mainImg.filename; }
@@ -443,6 +444,7 @@ function parseProductBody(body, existing) {
     name: body.name ?? (existing ? existing.name : ''),
     model: body.model ?? (existing ? existing.model : ''),
     series: body.series || 'dual-movement',
+    category: body.category !== undefined ? (body.category || '') : (existing ? (existing.category || '') : ''),
     movement: body.movement || '',
     japanese_option: body.japanese_option || '',
     moq_mono: body.moq_mono || '',
@@ -492,6 +494,87 @@ app.post('/admin/products/:id/delete', requireAuth, (req, res) => {
   db.hardDeleteProduct(req.params.id);
   flash(req, 'success', 'Product deleted');
   res.redirect('/admin/products');
+});
+
+// ===================== IMAGE TOOLS (rotate / crop orientation) =====================
+
+const sharp = require('sharp');
+
+const IMAGE_ROOTS = [
+  { root: path.join(__dirname, 'data', 'uploads'), urlBase: '/uploads/' },                     // persisted volume
+  { root: path.join(__dirname, 'public', 'uploads', 'products'), urlBase: '/uploads/products/' } // seeded catalog
+];
+
+function listImageDirs() {
+  const dirs = new Set();
+  IMAGE_ROOTS.forEach(({ root }) => {
+    const walk = (dir, rel) => {
+      let entries = [];
+      try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch (e) { return; }
+      dirs.add(rel);
+      entries.filter(e => e.isDirectory()).forEach(e => walk(path.join(dir, e.name), rel ? rel + '/' + e.name : e.name));
+    };
+    walk(root, '');
+  });
+  return [...dirs].sort();
+}
+
+function listImagesInDir(dir) {
+  const out = [];
+  IMAGE_ROOTS.forEach(({ root, urlBase }) => {
+    const abs = path.resolve(root, dir || '');
+    if (!abs.startsWith(root)) return;
+    let entries = [];
+    try { entries = fs.readdirSync(abs, { withFileTypes: true }); } catch (e) { return; }
+    entries.filter(e => e.isFile() && /\.(jpe?g|png|webp|gif)$/i.test(e.name)).forEach(e => {
+      out.push({ rel: dir ? dir + '/' + e.name : e.name, url: urlBase + (dir ? dir + '/' + e.name : e.name) });
+    });
+  });
+  return out.sort((a, b) => a.rel.localeCompare(b.rel));
+}
+
+app.get('/admin/image-tools', requireAuth, (req, res) => {
+  const dir = req.query.dir || '';
+  const images = listImagesInDir(dir).map(im => ({ ...im, url: im.url + '?v=' + Date.now() }));
+  res.render('admin/image-tools', {
+    page: 'image-tools', title: 'Image Tools',
+    dirs: listImageDirs(), currentDir: dir, images
+  });
+});
+
+app.post('/admin/image-tools', requireAuth, async (req, res) => {
+  const { img, rotate, crop } = req.body;
+  const rel = String(img || '').replace(/\\/g, '/');
+  let file = null;
+  for (const { root } of IMAGE_ROOTS) {
+    const abs = path.resolve(root, '.' + '/' + rel);
+    if (abs.startsWith(root) && fs.existsSync(abs)) { file = abs; break; }
+  }
+  if (!file) { flash(req, 'error', 'Image not found: ' + rel); return res.redirect('/admin/image-tools'); }
+  try {
+    const rot = parseInt(rotate) || 0;
+    const meta = await sharp(file).metadata();
+    let width = meta.width, height = meta.height;
+    if (rot === 90 || rot === 270) { const tmp = width; width = height; height = tmp; }
+    let pipeline = sharp(file);
+    if (rot) pipeline = pipeline.rotate(rot);
+    const aspects = { 'square': 1, 'portrait': 3 / 4, 'landscape': 4 / 3, 'wide': 16 / 10 };
+    if (crop && aspects[crop]) {
+      const ar = aspects[crop];
+      let tw, th;
+      if (width / height > ar) { th = height; tw = Math.round(height * ar); }
+      else { tw = width; th = Math.round(width / ar); }
+      pipeline = pipeline.resize({ width: tw, height: th, fit: 'cover', position: 'centre' });
+    }
+    const buf = await pipeline.toBuffer();
+    fs.writeFileSync(file, buf);
+    flash(req, 'success', `Image updated (${rel}${rot ? ', rotated ' + rot + '°' : ''}${crop ? ', cropped ' + crop : ''})`);
+    res.redirect('/admin/image-tools?dir=' + encodeURIComponent(req.body.dir || ''));
+  } catch (e) {
+    console.error('Image tools error:', e.message);
+    flash(req, 'error', 'Failed to update image: ' + e.message);
+    res.redirect('/admin/image-tools?dir=' + encodeURIComponent(req.body.dir || ''));
+  }
 });
 
 // ===================== INQUIRIES =====================

@@ -24,19 +24,32 @@
     </select>
   </div>
   <div class="form-group">
-    <label>Short Title (subtitle line)</label>
-    <input type="text" name="title" value="<%= pp.title || '' %>">
+    <label>Category (分类)</label>
+    <select name="category">
+      <option value="">Uncategorized</option>
+      <option value="student" <%= pp.category==='student'?'selected':'' %>>Student Watches (学生表)</option>
+      <option value="steel-business" <%= pp.category==='steel-business'?'selected':'' %>>Steel Band · Business (钢带·商务)</option>
+      <option value="steel-casual" <%= pp.category==='steel-casual'?'selected':'' %>>Steel Band · Casual (钢带·休闲)</option>
+      <option value="sport" <%= pp.category==='sport'?'selected':'' %>>Sport Watches (运动表)</option>
+    </select>
   </div>
 </div>
 <div class="two-col">
   <div class="form-group">
+    <label>Short Title (subtitle line)</label>
+    <input type="text" name="title" value="<%= pp.title || '' %>">
+  </div>
+  <div class="form-group">
     <label>Movement</label>
     <input type="text" name="movement" value="<%= pp.movement || 'Chinese Quartz Movement' %>">
   </div>
+</div>
+<div class="two-col">
   <div class="form-group">
     <label>Japanese Movement Option (shown as note)</label>
     <input type="text" name="japanese_option" value="<%= pp.japanese_option || '' %>" placeholder="Japanese Quartz Movement optional, extra ¥8 per piece">
   </div>
+  <div class="form-group"></div>
 </div>
 <div class="three-col">
   <div class="form-group">

@@ -1,6 +1,6 @@
 <%
-  const SUR_COLORS = ['Gold', 'Black', 'Rose Gold', 'Two-Tone Gold', 'Two-Tone Rose Gold', 'Blue'];
-  const surFor = (name) => SUR_COLORS.includes(name) ? (product.series === 'quartz' ? 8 : 10) : 0;
+  // 加价数据驱动：每款变体的 sur 来自目录页规则（表带颜色判定），见 scripts/classify-band-sur.py
+  const surFor = (c) => (c && c.sur) ? c.sur : 0;
 %>
 <main>
   <section class="pd-section">
@@ -44,7 +44,7 @@
           <div class="color-picker">
             <h3>Color Options <span class="cp-count"><%= product.color_options.length %> colors available</span></h3>
             <div class="cp-swatches">
-              <% product.color_options.forEach(c => { const sur = surFor(c.name); %>
+              <% product.color_options.forEach(c => { const sur = surFor(c); %>
               <button type="button" class="cp-swatch" data-img="<%= c.image %>" data-name="<%= c.name %>" data-sur="<%= sur %>">
                 <img src="<%= c.image %>" alt="<%= product.model %> <%= c.name %>" loading="lazy">
                 <span class="cp-name"><%= c.name %></span>

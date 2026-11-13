@@ -15,6 +15,13 @@
           <option value="dual-movement" <%= filters.series==='dual-movement'?'selected':'' %>>Dual-Movement (Analog + Digital)</option>
           <option value="quartz" <%= filters.series==='quartz'?'selected':'' %>>Quartz Watches</option>
         </select>
+        <select name="category">
+          <option value="">All Categories</option>
+          <option value="student" <%= filters.category==='student'?'selected':'' %>>Student Watches (学生表)</option>
+          <option value="steel-business" <%= filters.category==='steel-business'?'selected':'' %>>Steel Band · Business (钢带·商务)</option>
+          <option value="steel-casual" <%= filters.category==='steel-casual'?'selected':'' %>>Steel Band · Casual (钢带·休闲)</option>
+          <option value="sport" <%= filters.category==='sport'?'selected':'' %>>Sport Watches (运动表)</option>
+        </select>
         <select name="movement">
           <option value="">All Movements</option>
           <option value="chinese" <%= filters.movement==='chinese'?'selected':'' %>>Chinese Quartz</option>
