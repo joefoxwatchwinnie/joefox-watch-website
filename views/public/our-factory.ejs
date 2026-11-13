@@ -175,6 +175,7 @@
           <h2 class="fz-h2" style="margin-bottom:0;"><%= gv('dubai.heading', 'Our Dubai Showroom') %></h2>
         </div>
         <div class="fz-dubai-info">
+          <p class="fz-dubai-sub"><%= gv('dubai.text', '') %></p>
           <div class="fz-dubai-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
             <span><b><%= gv('dubai.name', 'NANO WATCHES TRAINING L.L.C') %></b><%= gv('dubai.address', 'Al Buteen, Deira, Dubai, UAE') ? ' · ' + gv('dubai.address', '') : '' %></span>
@@ -183,7 +184,6 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
             <span><%= gv('dubai.phone', '+971 55 298 8532') %></span>
           </div>
-          <p class="fz-dubai-sub"><%= gv('dubai.text', '') %></p>
         </div>
       </div>
       <div class="fz-dubai-grid">
@@ -204,12 +204,6 @@
         <figure class="fz-dubai-photo reveal">
           <img src="<%= dubaiImgs[2] %>" alt="Dubai showroom aisle">
           <figcaption><span><%= dubaiCaps[2] || 'Showroom Aisle' %></span>Thousands of models on display</figcaption>
-        </figure>
-        <% } %>
-        <% if (dubaiImgs[3]) { %>
-        <figure class="fz-dubai-photo wide reveal">
-          <img src="<%= dubaiImgs[3] %>" alt="Dubai showroom display wall">
-          <figcaption><span><%= dubaiCaps[3] || 'Display Wall' %></span>Quartz & dual-movement collections</figcaption>
         </figure>
         <% } %>
       </div>

@@ -23224,6 +23224,25 @@
     "cta": {
       "title": "Ready to Visit or Cooperate?",
       "text": "Contact our sales team for factory videos, certifications and a tailored quotation."
+    },
+    "dubai": {
+      "eyebrow": "Global Retail Presence",
+      "heading": "Our Dubai Showroom",
+      "text": "The full JOEFOX collection is stocked and on display at our partner showroom NANO WATCHES TRAINING L.L.C — visit us in Deira, Dubai to see the watches in person.",
+      "images": [
+        "/uploads/dubai/dubai-storefront.jpg",
+        "/uploads/dubai/dubai-shop-1.jpg",
+        "/uploads/dubai/dubai-shop-2.jpg"
+      ],
+      "captions": [
+        "Storefront — Deira, Dubai",
+        "Retail Shelves",
+        "Showroom Aisle"
+      ],
+      "name": "NANO WATCHES TRAINING L.L.C",
+      "address": "Al Buteen, Deira, Dubai, UAE",
+      "phone": "+971 55 298 8532",
+      "email": ""
     }
   },
   "oem": {
