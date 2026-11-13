@@ -7,8 +7,10 @@
     if (s.includes('silver')) return 0;
     if (s.includes('black')) return 1;
     if (s.includes('blue')) return 2;
-    if (s.includes('gold') || s.includes('rose')) return 3;
-    return 4;
+    if (s.includes('two-tone') || s.includes('two tone')) return 4;
+    if (s.includes('rose')) return 5;
+    if (s.includes('gold')) return 3;
+    return 6;
   };
   const sortedColors = (product.color_options || []).slice()
     .map((c, i) => ({ c, i }))
