@@ -443,17 +443,23 @@ function parseProductBody(body, existing) {
     title: body.title ?? (existing ? existing.title : ''),
     name: body.name ?? (existing ? existing.name : ''),
     model: body.model ?? (existing ? existing.model : ''),
-    series: body.series || 'dual-movement',
+    series: body.series || (existing ? existing.series : 'dual-movement'),
     category: body.category !== undefined ? (body.category || '') : (existing ? (existing.category || '') : ''),
-    movement: body.movement || '',
-    japanese_option: body.japanese_option || '',
-    moq_mono: body.moq_mono || '',
-    moq_mixed: body.moq_mixed || '',
-    colors: parseInt(body.colors) || 0,
-    description: body.description ?? '',
-    features: (body.features || '').split('\n').map(s => s.trim()).filter(Boolean),
-    tiers, specs,
-    gallery: (body.gallery || '').split('\n').map(s => s.trim()).filter(Boolean),
+    movement: body.movement !== undefined ? body.movement : (existing ? (existing.movement || '') : ''),
+    japanese_option: body.japanese_option !== undefined ? body.japanese_option : (existing ? (existing.japanese_option || '') : ''),
+    moq_mono: body.moq_mono !== undefined ? body.moq_mono : (existing ? (existing.moq_mono || '') : ''),
+    moq_mixed: body.moq_mixed !== undefined ? body.moq_mixed : (existing ? (existing.moq_mixed || '') : ''),
+    colors: body.colors !== undefined ? (parseInt(body.colors) || 0) : (existing ? (existing.colors || 0) : 0),
+    description: body.description !== undefined ? body.description : (existing ? (existing.description || '') : ''),
+    features: body.features !== undefined
+      ? (body.features || '').split('\n').map(s => s.trim()).filter(Boolean)
+      : (existing ? (existing.features || []) : []),
+    tiers,
+    // spec_* 都没传时不覆盖 specs（API 同步场景）；管理后台表单永远会传
+    specs: Object.keys(body).some(k => k.startsWith('spec_')) ? specs : (existing ? existing.specs : specs),
+    gallery: body.gallery !== undefined
+      ? (body.gallery || '').split('\n').map(s => s.trim()).filter(Boolean)
+      : (existing ? (existing.gallery || []) : []),
     ...(colorOptions ? { color_options: colorOptions } : {})
   };
 }
@@ -478,7 +484,8 @@ app.post('/admin/products/:id', requireAuth, upload.single('image'), (req, res) 
   const updates = {
     ...parseProductBody(req.body, existing),
     sort_order: parseInt(req.body.sort_order) || existing.sort_order,
-    active: req.body.active === 'on'
+    // active 字段未提交（API 同步场景）时保留原值，避免整批误下架
+    active: req.body.active === undefined ? (existing.active !== false) : (req.body.active === 'on')
   };
   if (req.file) { deleteUpload(existing.image); updates.image = '/uploads/' + req.file.filename; }
   db.updateProduct(req.params.id, updates);
