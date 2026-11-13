@@ -488,6 +488,8 @@ app.post('/admin/products/:id', requireAuth, upload.single('image'), (req, res) 
   if (!existing) { flash(req, 'error', 'Product not found'); return res.redirect('/admin/products'); }
   const updates = {
     ...parseProductBody(req.body, existing),
+    // API 同步可直接传 image 路径（图片已先传到卷）；不带时不覆盖
+    ...(req.body.image !== undefined ? { image: req.body.image || existing.image } : {}),
     sort_order: parseInt(req.body.sort_order) || existing.sort_order,
     // active 字段未提交（API 同步场景）时保留原值，避免整批误下架
     active: req.body.active === undefined ? (existing.active !== false) : (req.body.active === 'on')

@@ -9,20 +9,20 @@
 
   <section class="catalog-section">
     <div class="wrap">
-      <form class="filter-bar" method="get" action="/products">
-        <select name="series">
+      <form class="filter-bar" method="get" action="/products" id="filterForm">
+        <select name="series" onchange="document.getElementById('filterForm').submit()">
           <option value=""><%= t('catalog.all_series') %></option>
           <option value="dual-movement" <%= filters.series==='dual-movement'?'selected':'' %>>Dual-Movement (Analog + Digital)</option>
           <option value="quartz" <%= filters.series==='quartz'?'selected':'' %>>Quartz Watches</option>
         </select>
-        <select name="category">
+        <select name="category" onchange="document.getElementById('filterForm').submit()">
           <option value="">All Categories</option>
           <option value="student" <%= filters.category==='student'?'selected':'' %>>Student Watches (学生表)</option>
           <option value="steel-business" <%= filters.category==='steel-business'?'selected':'' %>>Steel Band · Business (钢带·商务)</option>
           <option value="steel-casual" <%= filters.category==='steel-casual'?'selected':'' %>>Steel Band · Casual (钢带·休闲)</option>
           <option value="sport" <%= filters.category==='sport'?'selected':'' %>>Sport Watches (运动表)</option>
         </select>
-        <select name="movement">
+        <select name="movement" onchange="document.getElementById('filterForm').submit()">
           <option value="">All Movements</option>
           <option value="chinese" <%= filters.movement==='chinese'?'selected':'' %>>Chinese Quartz</option>
           <option value="japanese" <%= filters.movement==='japanese'?'selected':'' %>>Japanese Quartz</option>
