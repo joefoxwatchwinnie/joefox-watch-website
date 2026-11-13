@@ -200,22 +200,27 @@ app.post('/sample-request', (req, res) => handleInquiry(req, res, 'sample'));
 
 app.get('/sitemap.xml', (req, res) => {
   const base = (db.getSettings().site_url || '').replace(/\/$/, '');
+  const today = new Date().toISOString().slice(0, 10);
   const urls = [
-    { url: '/', changefreq: 'weekly', priority: '1.0' },
-    { url: '/products', changefreq: 'weekly', priority: '0.9' },
-    { url: '/products?series=dual-movement', changefreq: 'weekly', priority: '0.9' },
-    { url: '/products?series=quartz', changefreq: 'weekly', priority: '0.8' },
-    { url: '/our-factory', changefreq: 'monthly', priority: '0.8' },
-    { url: '/oem-odm-service', changefreq: 'monthly', priority: '0.8' },
-    { url: '/sample-request', changefreq: 'monthly', priority: '0.6' },
-    { url: '/contact', changefreq: 'yearly', priority: '0.5' }
+    { url: '/', changefreq: 'weekly', priority: '1.0', lastmod: today },
+    { url: '/products', changefreq: 'weekly', priority: '0.9', lastmod: today },
+    { url: '/products?series=dual-movement', changefreq: 'weekly', priority: '0.9', lastmod: today },
+    { url: '/products?series=quartz', changefreq: 'weekly', priority: '0.8', lastmod: today },
+    { url: '/products?category=student', changefreq: 'weekly', priority: '0.8', lastmod: today },
+    { url: '/products?category=sport', changefreq: 'weekly', priority: '0.8', lastmod: today },
+    { url: '/products?category=steel-business', changefreq: 'weekly', priority: '0.8', lastmod: today },
+    { url: '/products?category=steel-casual', changefreq: 'weekly', priority: '0.8', lastmod: today },
+    { url: '/our-factory', changefreq: 'monthly', priority: '0.8', lastmod: today },
+    { url: '/oem-odm-service', changefreq: 'monthly', priority: '0.8', lastmod: today },
+    { url: '/sample-request', changefreq: 'monthly', priority: '0.6', lastmod: today },
+    { url: '/contact', changefreq: 'yearly', priority: '0.5', lastmod: today }
   ];
   db.getProducts().forEach(p => {
-    urls.push({ url: '/product/' + p.id, changefreq: 'monthly', priority: '0.7' });
+    urls.push({ url: '/product/' + p.id, changefreq: 'monthly', priority: '0.7', lastmod: today });
   });
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
   urls.forEach(p => {
-    xml += `  <url><loc>${base}${p.url}</loc><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority></url>\n`;
+    xml += `  <url><loc>${base}${p.url.replace(/&/g, '&amp;')}</loc><lastmod>${p.lastmod}</lastmod><changefreq>${p.changefreq}</changefreq><priority>${p.priority}</priority></url>\n`;
   });
   xml += '</urlset>';
   res.header('Content-Type', 'application/xml');
