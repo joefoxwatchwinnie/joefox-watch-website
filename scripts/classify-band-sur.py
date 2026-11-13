@@ -63,16 +63,21 @@ stats = {}
 for p in db['products']:
     tones, amount = parse_gold_option(p.get('gold_option'))
     strap = (p.get('specs', {}) or {}).get('strap', '') or ''
-    is_nylon = 'nylon' in strap.lower()
+    sl = strap.lower()
+    is_nylon = 'nylon' in sl or 'leather' in sl
+    # 规则（2026-11-13 用户确认）：钢带表带 黑/金(含玫金/间金)/蓝 都加价，银色原价；
+    # 款式里没有银色选项（全黑款）→ 整款原价；尼龙/皮带 → 原价
+    names = [str(o.get('name', '')).lower() for o in p.get('color_options', [])]
+    has_silver = any('silver' in n for n in names)
     for o in p.get('color_options', []):
-        if amount == 0 or is_nylon:
+        if amount == 0 or is_nylon or not has_silver:
             sur = 0
         else:
             try:
                 band = classify_band(o['image'])
             except Exception as e:
                 print('ERR', p['id'], o['image'], e); band = 'silver'
-            sur = amount if band in tones else 0
+            sur = amount if band != 'silver' else 0
             stats[(band, sur)] = stats.get((band, sur), 0) + 1
         o['sur'] = sur
 

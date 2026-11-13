@@ -102,35 +102,23 @@
     <div class="wrap">
       <div class="fz-eyebrow"><%= gv('qc.eyebrow', 'Quality Management') %></div>
       <h2 class="fz-h2"><%= gv('qc.heading', 'Multi-layer inspection process') %></h2>
-      <div class="fz-qc-grid">
-        <div class="fz-qc-steps">
-          <% (gv('qc.steps', []) || []).forEach((s, i) => { %>
-          <div class="fz-qc-step reveal"><span class="qc-no">0<%= i+1 %></span><div><h4><%= s.title %></h4><p><%= s.text %></p></div></div>
-          <% }) %>
+      <div class="fz-qc-list">
+        <%
+          const qcIconSvgs = [
+            '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14l14-7 14 7v20l-14 7-14-7z"/><path d="M10 14l14 7 14-7M24 21v20"/></svg>',
+            '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 42 13v11c0 10.5-7.6 16.9-18 20C13.6 40.9 6 34.5 6 24V13z"/><path d="M16 24l6 6 11-12"/></svg>',
+            '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6c7 9 12 15.2 12 21a12 12 0 1 1-24 0c0-5.8 5-12 12-21z"/><path d="M18 28a6.5 6.5 0 0 0 6.5 6.5"/></svg>',
+            '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M24 13v11l8 5"/></svg>',
+            '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="8" width="28" height="34" rx="3"/><path d="M18 17h12M18 24h12M18 31h7"/><path d="M40 30l4 4-7 8" stroke-width="2.2"/></svg>'
+          ];
+        %>
+        <% (gv('qc.steps', []) || []).forEach((s, i) => { %>
+        <div class="fz-qc-step reveal">
+          <span class="qc-no">0<%= i+1 %></span>
+          <div class="qc-ic"><%- qcIconSvgs[i % qcIconSvgs.length] %></div>
+          <div><h4><%= s.title %></h4><p><%= s.text %></p></div>
         </div>
-        <div class="fz-qc-media reveal">
-          <div class="qc-panel">
-            <p class="qc-panel-title">Every watch passes all 5 stages</p>
-            <div class="qc-icons">
-              <div class="qc-icon-item">
-                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 42 13v11c0 10.5-7.6 16.9-18 20C13.6 40.9 6 34.5 6 24V13z"/><path d="M16 24l6 6 11-12"/></svg>
-                <span>Strength Test</span>
-              </div>
-              <div class="qc-icon-item">
-                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6c7 9 12 15.2 12 21a12 12 0 1 1-24 0c0-5.8 5-12 12-21z"/><path d="M18 28a6.5 6.5 0 0 0 6.5 6.5"/></svg>
-                <span>Water Resistance</span>
-              </div>
-              <div class="qc-icon-item">
-                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M24 13v11l8 5"/><path d="M24 3v4M45 24h-4M24 45v-4M3 24h4" stroke-width="2"/></svg>
-                <span>Timing Accuracy</span>
-              </div>
-              <div class="qc-icon-item">
-                <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="8" width="28" height="34" rx="3"/><path d="M18 17h12M18 24h12M18 31h7"/><path d="M40 30l4 4-7 8" stroke-width="2.2"/></svg>
-                <span>Final Sampling</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <% }) %>
       </div>
     </div>
   </section>
@@ -287,19 +275,14 @@
   .fz-photo figcaption span{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-500);margin-bottom:4px;font-weight:600;}
 
   /* QC */
-  .fz-qc-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
-  .fz-qc-step{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.14);}
+  .fz-qc-list{max-width:880px;}
+  .fz-qc-step{display:flex;align-items:flex-start;gap:26px;padding:28px 0;border-bottom:1px solid rgba(255,255,255,.14);}
   .fz-qc-step:last-child{border-bottom:none;}
-  .qc-no{font-size:1.1rem;font-weight:300;color:rgba(255,255,255,.4);flex:0 0 36px;font-variant-numeric:tabular-nums;}
-  .fz-qc-step h4{font-size:1rem;font-weight:600;color:#fff;margin-bottom:5px;}
-  .fz-qc-step p{font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.6);}
-  .fz-qc-media{display:block;}
-  .qc-panel{border:1px solid rgba(255,255,255,.16);padding:36px 32px;}
-  .qc-panel-title{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:28px;font-weight:600;}
-  .qc-icons{display:grid;grid-template-columns:1fr 1fr;gap:30px 24px;}
-  .qc-icon-item{display:flex;flex-direction:column;align-items:flex-start;gap:12px;color:rgba(255,255,255,.85);}
-  .qc-icon-item svg{width:38px;height:38px;color:#e8c87a;}
-  .qc-icon-item span{font-size:.82rem;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.8);}
+  .qc-no{font-size:1.1rem;font-weight:300;color:rgba(255,255,255,.4);flex:0 0 36px;font-variant-numeric:tabular-nums;padding-top:8px;}
+  .qc-ic{flex:0 0 56px;width:56px;height:56px;border:1px solid rgba(232,200,122,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(232,200,122,.06);}
+  .qc-ic svg{width:28px;height:28px;color:#e8c87a;}
+  .fz-qc-step h4{font-size:1.05rem;font-weight:600;color:#fff;margin-bottom:6px;}
+  .fz-qc-step p{font-size:.88rem;line-height:1.65;color:rgba(255,255,255,.62);max-width:560px;}
 
   /* PROCESS */
   .fz-proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;border-top:1px solid var(--gray-300);padding-top:40px;}

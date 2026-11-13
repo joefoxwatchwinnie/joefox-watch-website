@@ -1,6 +1,7 @@
 <h1>OEM & ODM Service</h1>
 
 <form method="POST" action="/admin/oem" enctype="multipart/form-data" class="card">
+  <input type="hidden" name="service_count" value="<%= oem.services.length %>">
   <div class="two-col">
     <div class="form-group">
       <label>Section Title</label>

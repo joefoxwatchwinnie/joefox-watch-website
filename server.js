@@ -387,12 +387,6 @@ app.get('/admin/oem', requireAuth, (req, res) => {
 
 app.post('/admin/oem', requireAuth, upload.any(), (req, res) => {
   const oem = db.getOEM();
-  const svcImg = (i) => {
-    const f = (req.files || []).find(x => x.fieldname === 'service_image_' + i);
-    if (!f) return oem.services[i].image;
-    if (oem.services[i].image) deleteUpload(oem.services[i].image);
-    return '/uploads/' + f.filename;
-  };
   const updates = {
     title: req.body.title || oem.title,
     subtitle: req.body.subtitle || oem.subtitle,
@@ -400,11 +394,17 @@ app.post('/admin/oem', requireAuth, upload.any(), (req, res) => {
     moq: req.body.moq || oem.moq,
     sample_lead: req.body.sample_lead || oem.sample_lead,
     mass_lead: req.body.mass_lead || oem.mass_lead,
-    services: oem.services.map((s, i) => ({
-      title: req.body['service_title_' + i] || s.title,
-      desc: req.body['service_desc_' + i] || s.desc,
-      image: svcImg(i)
-    }))
+    services: Array.from({ length: parseInt(req.body.service_count) || oem.services.length }, (_, i) => {
+      const prev = oem.services[i] || {};
+      const f = (req.files || []).find(x => x.fieldname === 'service_image_' + i);
+      let image = prev.image;
+      if (f) { if (prev.image) deleteUpload(prev.image); image = '/uploads/' + f.filename; }
+      return {
+        title: req.body['service_title_' + i] || prev.title || '',
+        desc: req.body['service_desc_' + i] || prev.desc || '',
+        image
+      };
+    })
   };
   const mainImg = (req.files || []).find(x => x.fieldname === 'image');
   if (mainImg) { deleteUpload(oem.image); updates.image = '/uploads/' + mainImg.filename; }
