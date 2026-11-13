@@ -1,6 +1,19 @@
 <%
   // 加价数据驱动：每款变体的 sur 来自目录页规则（表带颜色判定），见 scripts/classify-band-sur.py
   const surFor = (c) => (c && c.sur) ? c.sur : 0;
+  // 颜色展示顺序：银 → 黑 → 蓝 → 金系（金/玫金/间金/间玫）→ 其余（保持原相对顺序）
+  const colorRank = (n) => {
+    const s = String(n || '').toLowerCase();
+    if (s.includes('silver')) return 0;
+    if (s.includes('black')) return 1;
+    if (s.includes('blue')) return 2;
+    if (s.includes('gold') || s.includes('rose')) return 3;
+    return 4;
+  };
+  const sortedColors = (product.color_options || []).slice()
+    .map((c, i) => ({ c, i }))
+    .sort((a, b) => (colorRank(a.c.name) - colorRank(b.c.name)) || (a.i - b.i))
+    .map(x => x.c);
 %>
 <main>
   <section class="pd-section">
@@ -42,9 +55,9 @@
 
           <% if (product.color_options && product.color_options.length) { %>
           <div class="color-picker">
-            <h3>Color Options <span class="cp-count"><%= product.color_options.length %> colors available</span></h3>
+            <h3>Color Options <span class="cp-count"><%= sortedColors.length %> colors available</span></h3>
             <div class="cp-swatches">
-              <% product.color_options.forEach(c => { const sur = surFor(c); %>
+              <% sortedColors.forEach(c => { const sur = surFor(c); %>
               <button type="button" class="cp-swatch" data-img="<%= c.image %>" data-name="<%= c.name %>" data-sur="<%= sur %>">
                 <img src="<%= c.image %>" alt="<%= product.model %> <%= c.name %>" loading="lazy">
                 <span class="cp-name"><%= c.name %></span>
