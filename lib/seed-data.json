@@ -426,12 +426,12 @@
         {
           "image": "/uploads/products/2815-c1.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2815-c2.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2815-c3.jpg",
@@ -446,7 +446,7 @@
         {
           "image": "/uploads/products/2815-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2815-c6.jpg",
@@ -600,7 +600,7 @@
         {
           "image": "/uploads/products/2810-c1.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2810-c2.jpg",
@@ -615,7 +615,7 @@
         {
           "image": "/uploads/products/2810-c4.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         }
       ]
     },
@@ -680,7 +680,7 @@
         {
           "image": "/uploads/products/2811-c1.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2811-c2.jpg",
@@ -695,12 +695,12 @@
         {
           "image": "/uploads/products/2811-c4.jpg",
           "name": "Two-Tone Rose Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2811-c5.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         }
       ]
     },
@@ -764,7 +764,7 @@
         {
           "image": "/uploads/products/2550-c1.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2550-c2.jpg",
@@ -774,7 +774,7 @@
         {
           "image": "/uploads/products/2550-c3.jpg",
           "name": "Pink",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2550-c4.jpg",
@@ -945,7 +945,7 @@
         {
           "image": "/uploads/products/2635-c1.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2635-c2.jpg",
@@ -955,7 +955,7 @@
         {
           "image": "/uploads/products/2635-c3.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2635-c4.jpg",
@@ -965,7 +965,7 @@
         {
           "image": "/uploads/products/2635-c5.jpg",
           "name": "Green",
-          "sur": 10.0
+          "sur": 0
         }
       ]
     },
@@ -1049,7 +1049,7 @@
         },
         {
           "image": "/uploads/products/2636-c5.jpg",
-          "name": "Two-Tone Gold",
+          "name": "Black",
           "sur": 0
         }
       ]
@@ -1203,32 +1203,32 @@
         {
           "image": "/uploads/products/2637-c1.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2637-c2.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2637-c3.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2637-c4.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2637-c5.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2637-c6.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2637-c7.jpg",
@@ -1904,7 +1904,7 @@
         {
           "image": "/uploads/products/2809-c1.jpg",
           "name": "White",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2809-c2.jpg",
@@ -1919,17 +1919,17 @@
         {
           "image": "/uploads/products/2809-c4.jpg",
           "name": "Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2809-c5.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2809-c6.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         }
       ]
     },
@@ -2084,8 +2084,8 @@
         },
         {
           "image": "/uploads/products/1976-c8.jpg",
-          "name": "Other",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         }
       ]
     },
@@ -2160,7 +2160,7 @@
         {
           "image": "/uploads/products/1971B-c2.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1971B-c3.jpg",
@@ -2184,7 +2184,7 @@
         },
         {
           "image": "/uploads/products/1971B-c7.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 10.0
         },
         {
@@ -2302,7 +2302,7 @@
         },
         {
           "image": "/uploads/products/2309-c8.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 10.0
         }
       ]
@@ -2390,7 +2390,7 @@
         },
         {
           "image": "/uploads/products/1962-c5.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 10.0
         },
         {
@@ -2971,8 +2971,8 @@
         },
         {
           "image": "/uploads/products/1982-c7.jpg",
-          "name": "Other",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         },
         {
           "image": "/uploads/products/1982-c8.jpg",
@@ -3053,8 +3053,8 @@
         },
         {
           "image": "/uploads/products/2309B-c3.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         },
         {
           "image": "/uploads/products/2309B-c4.jpg",
@@ -3259,7 +3259,7 @@
         {
           "image": "/uploads/products/2533-c4.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2533-c5.jpg",
@@ -3274,7 +3274,7 @@
         {
           "image": "/uploads/products/2533-c7.jpg",
           "name": "Other",
-          "sur": 0
+          "sur": 10.0
         }
       ]
     },
@@ -3352,8 +3352,8 @@
         },
         {
           "image": "/uploads/products/1514-c5.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         },
         {
           "image": "/uploads/products/1514-c6.jpg",
@@ -3471,7 +3471,7 @@
         {
           "image": "/uploads/products/1730-c6.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1730-c7.jpg",
@@ -3745,7 +3745,7 @@
       "color_options": [
         {
           "image": "/uploads/products/1948-c1.jpg",
-          "name": "Other",
+          "name": "Black",
           "sur": 10.0
         },
         {
@@ -3883,7 +3883,7 @@
         },
         {
           "image": "/uploads/products/1948B-c6.jpg",
-          "name": "Other",
+          "name": "Black",
           "sur": 10.0
         },
         {
@@ -4182,7 +4182,7 @@
         {
           "image": "/uploads/products/1951-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1951-c6.jpg",
@@ -4272,7 +4272,7 @@
         },
         {
           "image": "/uploads/products/1952-c3.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 10.0
         },
         {
@@ -4283,7 +4283,7 @@
         {
           "image": "/uploads/products/1952-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1952-c6.jpg",
@@ -4374,7 +4374,7 @@
         {
           "image": "/uploads/products/1952B-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1952B-c6.jpg",
@@ -4465,7 +4465,7 @@
         },
         {
           "image": "/uploads/products/1965-c5.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 10.0
         },
         {
@@ -4476,7 +4476,7 @@
         {
           "image": "/uploads/products/1965-c7.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         }
       ]
     },
@@ -4543,13 +4543,13 @@
       "color_options": [
         {
           "image": "/uploads/products/1967-c1.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 10.0
         },
         {
           "image": "/uploads/products/1967-c2.jpg",
-          "name": "Silver",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         },
         {
           "image": "/uploads/products/1967-c3.jpg",
@@ -4568,12 +4568,12 @@
         },
         {
           "image": "/uploads/products/1967-c6.jpg",
-          "name": "Two-Tone Gold",
+          "name": "Black",
           "sur": 10.0
         },
         {
           "image": "/uploads/products/1967-c7.jpg",
-          "name": "Gold",
+          "name": "Black",
           "sur": 10.0
         },
         {
@@ -4659,7 +4659,7 @@
         {
           "image": "/uploads/products/1971-c3.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1971-c4.jpg",
@@ -4683,13 +4683,13 @@
         },
         {
           "image": "/uploads/products/1971-c8.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         },
         {
           "image": "/uploads/products/1971-c9.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1971-c10.jpg",
@@ -4790,8 +4790,8 @@
         },
         {
           "image": "/uploads/products/1972-c7.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         }
       ]
     },
@@ -4869,7 +4869,7 @@
         {
           "image": "/uploads/products/1978-c3.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1978-c4.jpg",
@@ -4883,8 +4883,8 @@
         },
         {
           "image": "/uploads/products/1978-c6.jpg",
-          "name": "Other",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         },
         {
           "image": "/uploads/products/1978-c7.jpg",
@@ -4972,7 +4972,7 @@
         {
           "image": "/uploads/products/1978C-c3.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1978C-c4.jpg",
@@ -4986,8 +4986,8 @@
         },
         {
           "image": "/uploads/products/1978C-c6.jpg",
-          "name": "Other",
-          "sur": 0
+          "name": "Black",
+          "sur": 10.0
         },
         {
           "image": "/uploads/products/1978C-c7.jpg",
@@ -5195,7 +5195,7 @@
         {
           "image": "/uploads/products/1989C-c7.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1989C-c8.jpg",
@@ -5298,7 +5298,7 @@
         {
           "image": "/uploads/products/1990B-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1990B-c6.jpg",
@@ -5385,7 +5385,7 @@
         {
           "image": "/uploads/products/2019C-c2.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2019C-c3.jpg",
@@ -5490,7 +5490,7 @@
         {
           "image": "/uploads/products/2310-c3.jpg",
           "name": "Silver",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/2310-c4.jpg",
@@ -5704,18 +5704,18 @@
         },
         {
           "image": "/uploads/products/2539-c4.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 10.0
         },
         {
           "image": "/uploads/products/2539-c5.jpg",
-          "name": "Other",
+          "name": "Black",
           "sur": 10.0
         },
         {
           "image": "/uploads/products/2539-c6.jpg",
           "name": "Silver",
-          "sur": 0
+          "sur": 10.0
         },
         {
           "image": "/uploads/products/2539-c7.jpg",
@@ -5793,22 +5793,22 @@
         {
           "image": "/uploads/products/1934D-c1.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1934D-c2.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1934D-c3.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1934D-c4.jpg",
           "name": "Black",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/products/1934D-c5.jpg",
@@ -5828,7 +5828,7 @@
         {
           "image": "/uploads/products/1934D-c8.jpg",
           "name": "Blue",
-          "sur": 10.0
+          "sur": 0
         }
       ]
     },
@@ -6653,7 +6653,7 @@
         {
           "image": "/uploads/quartz/12055-p2-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/12055-p2-c4.jpg",
@@ -6770,7 +6770,7 @@
         {
           "image": "/uploads/quartz/12056-p3-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/12056-p3-c4.jpg",
@@ -7681,7 +7681,7 @@
         {
           "image": "/uploads/quartz/12064-p11-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/12064-p11-c4.jpg",
@@ -9036,7 +9036,7 @@
         {
           "image": "/uploads/quartz/9102-p24-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9102-p24-c6.jpg",
@@ -9172,8 +9172,8 @@
         },
         {
           "image": "/uploads/quartz/9103-p25-c5.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9103-p25-c6.jpg",
@@ -9315,7 +9315,7 @@
         {
           "image": "/uploads/quartz/9105-p26-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9105-p26-c6.jpg",
@@ -9452,7 +9452,7 @@
         {
           "image": "/uploads/quartz/9107-p27-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9107-p27-c6.jpg",
@@ -9588,8 +9588,8 @@
         },
         {
           "image": "/uploads/quartz/9110-p28-c5.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9110-p28-c6.jpg",
@@ -9731,7 +9731,7 @@
         {
           "image": "/uploads/quartz/9112-p29-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9112-p29-c6.jpg",
@@ -9902,7 +9902,7 @@
         },
         {
           "image": "/uploads/quartz/9036-p30-c12.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -10097,7 +10097,7 @@
         {
           "image": "/uploads/quartz/9073-p33-c4.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9073-p33-c5.jpg",
@@ -10219,7 +10219,7 @@
         {
           "image": "/uploads/quartz/9073-p33-c4.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9073-p33-c5.jpg",
@@ -10443,7 +10443,7 @@
         {
           "image": "/uploads/quartz/9085-p35-c5.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9085-p35-c6.jpg",
@@ -10762,12 +10762,12 @@
         {
           "image": "/uploads/quartz/9121-p38-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9121-p38-c6.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9121-p38-c7.jpg",
@@ -11063,7 +11063,7 @@
         {
           "image": "/uploads/quartz/9129-p42-c4.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9129-p42-c5.jpg",
@@ -11195,7 +11195,7 @@
         {
           "image": "/uploads/quartz/9129-p42-c4.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9129-p42-c5.jpg",
@@ -11327,12 +11327,12 @@
         {
           "image": "/uploads/quartz/9152-p43-c4.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9152-p43-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9152-p43-c6.jpg",
@@ -11423,8 +11423,8 @@
       "color_options": [
         {
           "image": "/uploads/quartz/9153-p44-c1.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9153-p44-c2.jpg",
@@ -11433,22 +11433,22 @@
         },
         {
           "image": "/uploads/quartz/9153-p44-c3.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9153-p44-c4.jpg",
-          "name": "Pink",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9153-p44-c5.jpg",
-          "name": "Green",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9153-p44-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -11458,7 +11458,7 @@
         },
         {
           "image": "/uploads/quartz/9153-p44-c8.jpg",
-          "name": "Green",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -11468,8 +11468,8 @@
         },
         {
           "image": "/uploads/quartz/9153-p44-c10.jpg",
-          "name": "Green",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         }
       ]
     },
@@ -11556,7 +11556,7 @@
         {
           "image": "/uploads/quartz/9156-p46-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9156-p46-c6.jpg",
@@ -11668,7 +11668,7 @@
         {
           "image": "/uploads/quartz/9156-p46-c5.jpg",
           "name": "Two-Tone Gold",
-          "sur": 10.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9156-p46-c6.jpg",
@@ -12088,7 +12088,7 @@
         {
           "image": "/uploads/quartz/10022-p50-c4.jpg",
           "name": "Silver",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/10022-p50-c5.jpg",
@@ -18668,13 +18668,13 @@
         },
         {
           "image": "/uploads/quartz/9380-p110-c6.jpg",
-          "name": "Silver",
-          "sur": 0
+          "name": "Black",
+          "sur": 8.0
         },
         {
           "image": "/uploads/quartz/9380-p110-c7.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 8.0
         },
         {
           "image": "/uploads/quartz/9380-p110-c8.jpg",
@@ -18785,13 +18785,13 @@
         },
         {
           "image": "/uploads/quartz/9394-p111-c6.jpg",
-          "name": "Silver",
-          "sur": 0
+          "name": "Black",
+          "sur": 8.0
         },
         {
           "image": "/uploads/quartz/9394-p111-c7.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 8.0
         },
         {
           "image": "/uploads/quartz/9394-p111-c8.jpg",
@@ -18902,7 +18902,7 @@
         },
         {
           "image": "/uploads/quartz/9395-p112-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 8.0
         },
         {
@@ -19019,12 +19019,12 @@
         },
         {
           "image": "/uploads/quartz/9396-p113-c6.jpg",
-          "name": "Silver",
-          "sur": 0
+          "name": "Black",
+          "sur": 8.0
         },
         {
           "image": "/uploads/quartz/9396-p113-c7.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 8.0
         },
         {
@@ -19136,7 +19136,7 @@
         },
         {
           "image": "/uploads/quartz/9397-p114-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 8.0
         },
         {
@@ -19239,7 +19239,7 @@
         {
           "image": "/uploads/quartz/9398-p115-c3.jpg",
           "name": "Blue",
-          "sur": 8.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9398-p115-c4.jpg",
@@ -19253,7 +19253,7 @@
         },
         {
           "image": "/uploads/quartz/9398-p115-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 8.0
         },
         {
@@ -20345,7 +20345,7 @@
         },
         {
           "image": "/uploads/quartz/9401-p126-c7.jpg",
-          "name": "Silver",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -20457,7 +20457,7 @@
         },
         {
           "image": "/uploads/quartz/9402-p127-c6.jpg",
-          "name": "Silver",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -20554,13 +20554,13 @@
         },
         {
           "image": "/uploads/quartz/9403-p128-c2.jpg",
-          "name": "Black",
-          "sur": 6.0
+          "name": "Silver",
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9403-p128-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9403-p128-c4.jpg",
@@ -20677,7 +20677,7 @@
         {
           "image": "/uploads/quartz/9404-p129-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9404-p129-c4.jpg",
@@ -20691,7 +20691,7 @@
         },
         {
           "image": "/uploads/quartz/9404-p129-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -20794,7 +20794,7 @@
         {
           "image": "/uploads/quartz/9405-p130-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9405-p130-c4.jpg",
@@ -20808,13 +20808,13 @@
         },
         {
           "image": "/uploads/quartz/9405-p130-c6.jpg",
-          "name": "Silver",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9405-p130-c7.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9405-p130-c8.jpg",
@@ -20911,7 +20911,7 @@
         {
           "image": "/uploads/quartz/9406-p131-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9406-p131-c4.jpg",
@@ -20925,13 +20925,13 @@
         },
         {
           "image": "/uploads/quartz/9406-p131-c6.jpg",
-          "name": "Silver",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9406-p131-c7.jpg",
-          "name": "Other",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9406-p131-c8.jpg",
@@ -21028,7 +21028,7 @@
         {
           "image": "/uploads/quartz/9407-p132-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9407-p132-c4.jpg",
@@ -21042,13 +21042,13 @@
         },
         {
           "image": "/uploads/quartz/9407-p132-c6.jpg",
-          "name": "Silver",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9407-p132-c7.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9407-p132-c8.jpg",
@@ -21159,7 +21159,7 @@
         },
         {
           "image": "/uploads/quartz/9408-p133-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -21262,7 +21262,7 @@
         {
           "image": "/uploads/quartz/9409-p134-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9409-p134-c4.jpg",
@@ -21276,7 +21276,7 @@
         },
         {
           "image": "/uploads/quartz/9409-p134-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -21393,13 +21393,13 @@
         },
         {
           "image": "/uploads/quartz/9410-p135-c6.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9410-p135-c7.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9410-p135-c8.jpg",
@@ -21491,12 +21491,12 @@
         {
           "image": "/uploads/quartz/9411-p136-c2.jpg",
           "name": "Silver",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9411-p136-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9411-p136-c4.jpg",
@@ -21510,13 +21510,13 @@
         },
         {
           "image": "/uploads/quartz/9411-p136-c6.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9411-p136-c7.jpg",
           "name": "Black",
-          "sur": 0
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9411-p136-c8.jpg",
@@ -21627,8 +21627,8 @@
         },
         {
           "image": "/uploads/quartz/9412-p137-c6.jpg",
-          "name": "Other",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9412-p137-c7.jpg",
@@ -21983,8 +21983,8 @@
         },
         {
           "image": "/uploads/quartz/9415-p140-c6.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9415-p140-c7.jpg",
@@ -22217,7 +22217,7 @@
         },
         {
           "image": "/uploads/quartz/9417-p142-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -22320,7 +22320,7 @@
         {
           "image": "/uploads/quartz/9418-p143-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9418-p143-c4.jpg",
@@ -22451,13 +22451,13 @@
         },
         {
           "image": "/uploads/quartz/9419-p144-c6.jpg",
-          "name": "Silver",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9419-p144-c7.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9419-p144-c8.jpg",
@@ -22568,7 +22568,7 @@
         },
         {
           "image": "/uploads/quartz/9420-p145-c6.jpg",
-          "name": "White",
+          "name": "Black",
           "sur": 6.0
         },
         {
@@ -22671,7 +22671,7 @@
         {
           "image": "/uploads/quartz/9421-p146-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9421-p146-c4.jpg",
@@ -22685,8 +22685,8 @@
         },
         {
           "image": "/uploads/quartz/9421-p146-c6.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9421-p146-c7.jpg",
@@ -22788,7 +22788,7 @@
         {
           "image": "/uploads/quartz/9422-p147-c3.jpg",
           "name": "Blue",
-          "sur": 6.0
+          "sur": 0
         },
         {
           "image": "/uploads/quartz/9422-p147-c4.jpg",
@@ -22914,8 +22914,8 @@
         },
         {
           "image": "/uploads/quartz/9423-p148-c6.jpg",
-          "name": "White",
-          "sur": 0
+          "name": "Black",
+          "sur": 6.0
         },
         {
           "image": "/uploads/quartz/9423-p148-c7.jpg",
